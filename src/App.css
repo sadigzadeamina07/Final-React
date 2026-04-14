@@ -1,4 +1,25 @@
 @import "tailwindcss";
-@theme{
-    --container-max-width:1200px;
+
+@theme {
+    --container-max-width: 1200px;
+    --font-helveticaN: 'HelveticaNeue', ui-sans-serif, system-ui;
+    --font-optima: 'OPTIMA', ui-sans-serif, system-ui;
+    --font-sans: 'Helvetica', ui-sans-serif, system-ui;
+
+}
+
+@font-face {
+    font-family: 'HelveticaNeue';
+    src: url('/assets/Font/HelveticaLTCondensedRegular.ttf');
+}
+
+@font-face {
+    font-family: 'OPTIMA';
+    src: url('/assets/Font/OPTIMA.TTF');
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('/assets/Font/Helvetica.woff');
+    
 }

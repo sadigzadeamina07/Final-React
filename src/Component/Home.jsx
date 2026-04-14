@@ -4,9 +4,14 @@ import { Link } from 'react-router'
 function Home() {
     return (
         <div>
+            <Link to='/'>
+                        <img src="/assets/img/Hero.png" className='hidden md:block w-full' alt="" />
+                        <img src="/assets/img/HeroMobile.gif" className='md:hidden w-full  block' alt="" />
+            </Link>
+
             <div className='max-w-[1300px] mx-auto'>
                 <div className=" text-center text-[#3a080a] px-3">
-                    <h3 className='text-[28px] p-[24px] '>Shop By Category</h3>
+                    <h3 className='font-optima text-[28px] p-[24px] '>Shop By Category</h3>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
                         <div className="    hover:underline  flex flex-col items-center ">
                             <Link to='/'>
@@ -31,11 +36,14 @@ function Home() {
 
 
             </div>
-<img src="/assets/img/App Promotion.webp"  className='h-[85vh]  md:h-full object-cover object-[40%_50%]' alt="" />
+            <Link to='/'>
+            <img src="/assets/img/App Promotion.webp"  className='h-[85vh]  md:h-full object-cover object-[40%_50%]' alt="" />
+            </Link>
+
             <div className="bg-[#f5f3f3] px-3">
                 <div className='max-w-[1300px] mx-auto'>
                     <div className="text-center text-[#3a080a]">
-                        <h3 className='text-[28px] p-[24px] '>Charlotte Tilbury Exclusives</h3>
+                        <h3 className='text-[28px] p-[24px] font-optima'>Charlotte Tilbury Exclusives</h3>
                         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
                             <div className="      hover:underline flex flex-col items-center ">
                                 <img src="/assets/img/Exclusives/FreeMiniSkincareDuo.webp" className='h-[42vh]  w-fit object-cover' alt="" />
@@ -60,7 +68,7 @@ function Home() {
             </div>
             <div className='max-w-[1300px] mx-auto'>
                 <div className=" text-center text-[#3a080a] px-3">
-                    <h3 className='text-[18px] md:text-[28px] p-[24px] '>Find Your Perfect Makeup + Skincare Matches</h3>
+                    <h3 className='text-[18px] md:text-[28px] p-[24px]  font-optima'>Find Your Perfect Makeup + Skincare Matches</h3>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
                         <div className="    hover:underline  flex flex-col items-center ">
                             <Link to='/'>
