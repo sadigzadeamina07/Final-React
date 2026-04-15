@@ -43,7 +43,7 @@ function Header() {
 
       </div>
       <div className="bg-white px-[1rem] ">
-        <div className="container max-w-[1470px] md:pt-4 md:pb-2 mx-auto">
+        <div className="container max-w-[1470px]  py-2 md:pt-4 md:pb-2 mx-auto">
           <div className="hidden md:flex h-[10vh] justify-between items-center ">
             <div className="text-[12px]  gap-4">
               <p>United States| EN | USD $</p>
@@ -60,7 +60,7 @@ function Header() {
 
           </div>
           <div className="flex  md:hidden   h-[10vh] justify-between items-center ">
-            <div className="flex gap-4">
+            <div className="flex  gap-4">
               <Menu size={25} strokeWidth={1} color='#340c0c' />
               <Heart size={25} strokeWidth={1} color='#340c0c' />
             </div>
@@ -91,7 +91,7 @@ function Header() {
 
           </div>
           <div className="md:hidden  flex  justify-center pb-4 items-center ">
-            <label className='border-1 border-[#340c0c]   flex items-center rounded-full w-full h-[5vh]'>           <PiMagnifyingGlass className='ml-2' size={25} /> <input type="text" placeholder='' className=' focus:outline-0 w-[82%]' />
+            <label className='border-1 border-[#340c0c]   flex items-center rounded-full w-full  p-2 h-fit'>           <PiMagnifyingGlass className='mx-2' size={25} /> <input type="text" placeholder='' className=' focus:outline-0 w-[75%] md:w-[82%] ' />
             </label>
 
           </div>
