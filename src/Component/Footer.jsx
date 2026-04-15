@@ -16,12 +16,12 @@ function Footer() {
               <p>on all orders over $50</p>
             </div>
             <div className="text-center flex flex-col items-center">
-              <img src="/assets/img/Footer/Cards.png" className='w-[80px]' alt="" />
+              <img src="/assets/img/Footer/Lips.png" className='w-[100px]' alt="" />
               <h3 className='font-semibold '>Get 2 free samples </h3>
               <p>with all orders</p>
             </div>
             <div className="text-center flex flex-col items-center">
-              <img src="/assets/img/Footer/Lips.png" className='w-[100px]' alt="" />
+              <img src="/assets/img/Footer/Miror.png" className='w-[70px]' alt="" />
               <h3 className='font-semibold '>Free Delivery & Returns</h3>
               <p>on all orders over $50</p>
             </div>

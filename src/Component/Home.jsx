@@ -1,16 +1,78 @@
 import React from 'react'
 import { Link } from 'react-router'
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { Heart } from 'lucide-react';
 function Home() {
+    const data = [
+        {
+            "id": "ct-magic-duo-001",
+            "name": "Magic Cream & Setting Spray Duo",
+            "category": "Skincare Kits",
+            "price": 85.00,
+            "currency": "USD",
+            "main_image": "B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png",
+            "hover_image": "MC-50ml.png",
+            "tag": "Limited Edition",
+            "rating": 4.9
+        },
+        {
+            "id": "ct-hff-002",
+            "name": "Hollywood Flawless Filter",
+            "category": "Face Primer",
+            "price": 49.00,
+            "currency": "USD",
+            "main_image": "HFFMINI-3-BESTSELLER-PDP.png",
+            "hover_image": "HFF-PACKSHOT-OPEN-4.png",
+            "tag": "Best Seller",
+            "rating": 4.8
+        },
+        {
+            "id": "ct-lip-cheat-003",
+            "name": "Lip Cheat - Pillow Talk",
+            "category": "Lip Liner",
+            "price": 25.00,
+            "currency": "USD",
+            "main_image": "LIPCHEAT-PT-LEGENDARY-PDP.png",
+            "hover_image": "LIPCHEAT-PT-LEGENDARY-PDP.png",
+            "tag": "Iconic",
+            "rating": 4.9
+        },
+        {
+            "id": "ct-magic-cream-004",
+            "name": "Charlotte's Magic Cream",
+            "category": "Moisturizer",
+            "price": 100.00,
+            "currency": "USD",
+            "main_image": "MC-50ml.png",
+            "hover_image": "B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png",
+            "tag": "Award Winner",
+            "rating": 4.7
+        },
+        {
+            "id": "ct-setting-spray-005",
+            "name": "Airbrush Flawless Setting Spray",
+            "category": "Setting Spray",
+            "price": 38.00,
+            "currency": "USD",
+            "main_image": "B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png",
+            "hover_image": "HFF-PACKSHOT-OPEN-4.png",
+            "tag": "New",
+            "rating": 4.8
+        }
+    ]
     return (
-        <div>
+        <div className='text-[#3a080a] '>
             <Link to='/'>
-                        <img src="/assets/img/Hero.png" className='hidden md:block w-full' alt="" />
-                        <img src="/assets/img/HeroMobile.gif" className='md:hidden w-full  block' alt="" />
+                <img src="/assets/img/Hero.png" className='hidden md:block w-full' alt="" />
+                <img src="/assets/img/HeroMobile.gif" className='md:hidden w-full  block' alt="" />
             </Link>
 
             <div className='max-w-[1300px] mx-auto'>
-                <div className=" text-center text-[#3a080a] px-3">
+                <div className=" text-center px-3">
                     <h3 className='font-optima text-[28px] p-[24px] '>Shop By Category</h3>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
                         <div className="    hover:underline  flex flex-col items-center ">
@@ -37,7 +99,7 @@ function Home() {
 
             </div>
             <Link to='/'>
-            <img src="/assets/img/App Promotion.webp"  className='h-[85vh] w-full  md:h-full object-cover object-[40%_50%]' alt="" />
+                <img src="/assets/img/App Promotion.webp" className='h-[85vh] w-full  md:h-full object-cover object-[40%_50%]' alt="" />
             </Link>
 
             <div className="bg-[#f5f3f3] px-3">
@@ -90,6 +152,51 @@ function Home() {
                         </div>
                     </div>
                 </div>
+                <Swiper
+                    pagination={{
+                        type: 'progressbar',
+                    }}
+                    slidesPerView={1}
+                    spaceBetween={10}
+                    breakpoints={{
+                        784: {
+                            slidesPerView: 3
+                        },
+                        1440: {
+                            slidesPerView: 4,
+                            spaceBetween: 40,
+                        }
+                    }}
+                    navigation={true}
+                    observer={true}
+                    modules={[Pagination, Navigation]}
+                    className="mySwiper"
+                >
+                    {data.map((items, index) => (
+                        <div className="w-full h-[40vh]">
+                            <SwiperSlide key={index} >
+
+                                <img src={'/assets/img/Products/' + items.main_image} className=' relative w-full  bg-[#f5f5f5] object-cover' alt="" />
+                                <div className="absolute right-3 bg-white p-2 rounded-full border-none border top-3">
+                                    <Heart />
+                                </div>
+                                <div className="p-[16px] flex flex-col gap-3">
+                                    <h3 className='font-bold font-helveticaN '>
+                                        {items.name}
+                                    </h3>
+                                    <p>${items.price.toFixed(2)}</p>
+                                    <button className='border   uppercase font-optima border-[#3a080a]'>
+                                        Add to Bag
+                                    </button>
+                                </div>
+
+                            </SwiperSlide>
+                        </div>
+
+
+                    ))}
+
+                </Swiper>
 
 
             </div>

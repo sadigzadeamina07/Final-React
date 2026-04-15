@@ -59,7 +59,7 @@ function Header() {
             </div>
 
           </div>
-          <div className="flex  md:hidden   h-[10vh] justify-between items-center ">
+          <div className="flex  md:hidden  py-1  h-[10vh] justify-between items-center ">
             <div className="flex  gap-4">
               <Menu size={25} strokeWidth={1} color='#340c0c' />
               <Heart size={25} strokeWidth={1} color='#340c0c' />
