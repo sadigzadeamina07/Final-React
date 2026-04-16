@@ -185,7 +185,7 @@ function Home() {
                                         {items.name}
                                     </h3>
                                     <p>${items.price.toFixed(2)}</p>
-                                    <button className='border   uppercase font-optima border-[#3a080a]'>
+                                    <button className='border  duration-200  uppercase font-helveticaN py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
                                         Add to Bag
                                     </button>
                                 </div>
