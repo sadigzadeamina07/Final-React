@@ -5,7 +5,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Heart } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 function Home() {
     const data = [
         {
@@ -152,53 +152,74 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <Swiper
-                    pagination={{
-                        type: 'progressbar',
-                    }}
-                    slidesPerView={1}
-                    spaceBetween={10}
-                    breakpoints={{
-                        784: {
-                            slidesPerView: 3
-                        },
-                        1440: {
-                            slidesPerView: 4,
-                            spaceBetween: 40,
-                        }
-                    }}
-                    navigation={true}
-                    observer={true}
-                    modules={[Pagination, Navigation]}
-                    className="mySwiper"
-                >
-                    {data.map((items, index) => (
-                        <div className="w-full h-[40vh]">
-                            <SwiperSlide key={index} >
+                <div className='relative'>
 
-                                <img src={'/assets/img/Products/' + items.main_image} className=' relative w-full  bg-[#f5f5f5] object-cover' alt="" />
-                                <div className="absolute right-3 bg-white p-2 rounded-full border-none border top-3">
-                                    <Heart />
-                                </div>
-                                <div className="p-[16px] flex flex-col gap-3">
-                                    <h3 className='font-bold font-helveticaN '>
-                                        {items.name}
-                                    </h3>
-                                    <p>${items.price.toFixed(2)}</p>
-                                    <button className='border  duration-200  uppercase font-helveticaN py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
-                                        Add to Bag
-                                    </button>
-                                </div>
-
-                            </SwiperSlide>
-                        </div>
+                    <Swiper
+                        pagination={{
+                            type: 'progressbar',
+                        }}
+                        slidesPerView={1}
+                        breakpoints={{
+                            //   480: {
+                            //      slidesPerView: 2,
+                            //    },
+                            768: {
+                                slidesPerView: 3,
+                                spaceBetween: 20,
+                            },
+                            //   1024: {
+                            //     slidesPerView: 6,
+                            //     //     spaceBetween: 30,
+                            //     },
+                            // 1440: {
+                            //     slidesPerView: 4,
+                            //     spaceBetween: 40,
+                            // },
+                        }}
+                        navigation={{
+                            prevEl: '.custom-prev-button',
+                            nextEl: '.custom-next-button',
 
 
-                    ))}
 
-                </Swiper>
+                        }}
+                        observer={true}
+                        modules={[Pagination, Navigation]}
+                        className="mySwiper"
+                    >
+                        {data.map((items, index) => (
+
+                                <SwiperSlide key={index} >
+                            <div className="w-full  relative">
+                                    <img src={'/assets/img/Products/' + items.main_image} className='  w-full h-fit bg-[#f5f5f5] object-cover' alt="" />
+                                    <div className="absolute right-3 bg-white p-2 rounded-full border-none border top-3">
+                                        <Heart />
+                                    </div>
+                                    <div className="p-[16px] flex flex-col gap-3">
+                                        <h3 className='font-bold font-helveticaN '>
+                                            {items.name}
+                                        </h3>
+                                        <p>${items.price.toFixed(2)}</p>
+                                        <button className='border  duration-200  uppercase font-helveticaN py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
+                                            Add to Bag
+                                        </button>
+                                    </div>
+        </div>
+                                </SwiperSlide>
+                    
 
 
+                        ))}
+
+                    </Swiper>
+
+                    <button className='custom-prev-button absolute left-0 top-1/3  -translate-0.5 shadow-2xl bg-white/80 disabled:opacity-50'>
+                        <ChevronLeft size={24} />
+                    </button>
+                    <button className='custom-next-button absolute right-0 top-1/3  -translate-0.5 shadow-2xl bg-white/80 disabled:opacity-50'>
+                        <ChevronRight size={24} />
+                    </button>
+                </div>
             </div>
         </div>
     )

@@ -55,7 +55,12 @@ function Header() {
               <User size={25} strokeWidth={1} color='#340c0c' />
               <Heart size={25} strokeWidth={1} color='#340c0c' />
               <PiMagnifyingGlass size={25} />
-              <img src="/assets/img/BasketIcon.svg" className='w-[35px]' alt="" />
+                                <div className='flex items-center gap-2'>
+
+               <img src="/assets/img/BasketIcon.svg" className='w-[35px] relative ' alt="" />
+                <div className="bg-[#340c0c] text-white  -mt-1.5 -ml-5  px-[8px]  rounded-full border">1</div>
+ </div>
+
             </div>
 
           </div>
@@ -70,7 +75,11 @@ function Header() {
 
             <div className="flex items-center gap-4">
               <User size={25} strokeWidth={1} color='#340c0c' />
-              <img src="/assets/img/BasketIcon.svg" className='w-[35px]' alt="" />
+                 <div className='flex items-center gap-2'>
+
+               <img src="/assets/img/BasketIcon.svg" className='w-[35px] relative ' alt="" />
+                <div className="bg-[#340c0c] text-white  -mt-1.5 -ml-5 px-[8px]  rounded-full border">1</div>
+ </div>
             </div>
           </div>
         </div>
@@ -91,8 +100,12 @@ function Header() {
 
           </div>
           <div className="md:hidden  flex  justify-center pb-4 items-center ">
-            <label className='border-1 border-[#340c0c]   flex items-center rounded-full w-full  p-2 h-fit'>           <PiMagnifyingGlass className='mx-2' size={25} /> <input type="text" placeholder='' className=' focus:outline-0 w-[75%] md:w-[82%] ' />
-            </label>
+            <label className='border-1 border-[#340c0c]   flex items-center rounded-full w-full  p-2 h-fit'>       
+                  <PiMagnifyingGlass className='mx-2' size={25} /> 
+
+                  <input type="text" placeholder='' className=' focus:outline-0 w-[75%] md:w-[82%] ' />
+         
+                    </label>
 
           </div>
 

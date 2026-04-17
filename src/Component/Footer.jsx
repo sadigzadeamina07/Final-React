@@ -42,7 +42,7 @@ function Footer() {
 
 
       <div className="m-[3rem]  ">
-        <div className="grid grid-cols-1 md:grid-cols-4">
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-4">
           <div>
             <h3 className='font-helveticaN uppercase font-bold'>About</h3>
             <ul className='flex flex-col gap-2'>
