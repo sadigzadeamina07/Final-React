@@ -1,11 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router'
+import React, { useState } from 'react';
+import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import HeroDesktopBanner from '/assets/img/Hero.png';
+import HeroMobileBanner from '/assets/img/HeroMobile.gif';
+import AppPromotionBanner from '/assets/img/App Promotion.webp';
+import BrandStoryVideo from '/assets/img/LEGENDARY_ORIGIN_EN_360.mp4';
+import CategoryMakeup from '/assets/img/ShopByCategory/MakeUp.png';
+import CategorySkincare from '/assets/img/ShopByCategory/Skincare.png';
+import CategoryFoundation from '/assets/img/ShopByCategory/Foundation.webp';
+import CategoryNewIn from '/assets/img/ShopByCategory/Newin.webp';
+import PromoMiniSkincareDuo from '/assets/img/Exclusives/FreeMiniSkincareDuo.webp';
+import PromoLoyaltyGift from '/assets/img/Exclusives/ExclusiveLoyaltyGift.png';
+import PromoBridalBeautyKit from '/assets/img/Exclusives/ExclusiveBridalBeautyKit.png';
+import PromoSkincareDiscount from '/assets/img/Exclusives/SkincareKits.webp';
+import ServiceFoundationMatch from '/assets/img/SkinMatches/FoundationShadeMatch.png';
+import ServiceLipstickMatch from '/assets/img/SkinMatches/LipstickShadeMatch.png';
+import ServiceSkinAnalysis from '/assets/img/SkinMatches/AnalyseYourSkin.png';
+import ServiceOnlineConsultation from '/assets/img/SkinMatches/OnlineBeautyConsultation.jpeg';
+import ProductMagicCreamDuo from '/assets/img/Products/B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png';
+import ProductFlawlessFilterMini from '/assets/img/Products/HFFMINI-3-BESTSELLER-PDP.png';
+import ProductFlawlessFilterPackshot from '/assets/img/Products/HFF-PACKSHOT-OPEN-4.png';
+import ProductLipCheatPillowTalk from '/assets/img/Products/LIPCHEAT-PT-LEGENDARY-PDP.png';
+import ProductMagicCream50ml from '/assets/img/Products/MC-50ml.png';
+
 function Home() {
     const data = [
         {
@@ -14,8 +37,8 @@ function Home() {
             "category": "Skincare Kits",
             "price": 85.00,
             "currency": "USD",
-            "main_image": "B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png",
-            "hover_image": "MC-50ml.png",
+            "main_image": ProductMagicCreamDuo,
+            "hover_image": ProductMagicCream50ml,
             "tag": "Limited Edition",
             "rating": 4.9
         },
@@ -25,8 +48,8 @@ function Home() {
             "category": "Face Primer",
             "price": 49.00,
             "currency": "USD",
-            "main_image": "HFFMINI-3-BESTSELLER-PDP.png",
-            "hover_image": "HFF-PACKSHOT-OPEN-4.png",
+            "main_image": ProductFlawlessFilterMini,
+            "hover_image": ProductFlawlessFilterPackshot,
             "tag": "Best Seller",
             "rating": 4.8
         },
@@ -36,8 +59,8 @@ function Home() {
             "category": "Lip Liner",
             "price": 25.00,
             "currency": "USD",
-            "main_image": "LIPCHEAT-PT-LEGENDARY-PDP.png",
-            "hover_image": "LIPCHEAT-PT-LEGENDARY-PDP.png",
+            "main_image": ProductLipCheatPillowTalk,
+            "hover_image": ProductLipCheatPillowTalk,
             "tag": "Iconic",
             "rating": 4.9
         },
@@ -47,8 +70,8 @@ function Home() {
             "category": "Moisturizer",
             "price": 100.00,
             "currency": "USD",
-            "main_image": "MC-50ml.png",
-            "hover_image": "B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png",
+            "main_image": ProductMagicCream50ml,
+            "hover_image": ProductMagicCreamDuo,
             "tag": "Award Winner",
             "rating": 4.7
         },
@@ -58,171 +81,167 @@ function Home() {
             "category": "Setting Spray",
             "price": 38.00,
             "currency": "USD",
-            "main_image": "B13_-_MAGIC_CREAM_SETTING_SPRAY_DUO.png",
-            "hover_image": "HFF-PACKSHOT-OPEN-4.png",
+            "main_image": ProductMagicCreamDuo,
+            "hover_image": ProductFlawlessFilterPackshot,
             "tag": "New",
             "rating": 4.8
         }
-    ]
+    ];
+
+    const [heart, setHeart] = useState(false);
+
+    const toogleHeart = (id) => {
+        if (id) setHeart(!heart);
+    };
+
     return (
-        <div className='text-[#3a080a] '>
+        <div className='text-[#3a080a]'>
             <Link to='/'>
-                <img src="/assets/img/Hero.png" className='hidden md:block w-full' alt="" />
-                <img src="/assets/img/HeroMobile.gif" className='md:hidden w-full  block' alt="" />
+                <img src={HeroDesktopBanner} className='hidden md:block w-full' alt="Hero Desktop Banner" />
+                <img src={HeroMobileBanner} className='md:hidden w-full block' alt="Hero Mobile Banner" />
             </Link>
 
             <div className='max-w-[1300px] mx-auto'>
-                <div className=" text-center px-3">
-                    <h3 className='font-optima text-[28px] p-[24px] '>Shop By Category</h3>
+                <div className="text-center px-3">
+                    <h3 className='font-optima text-[28px] p-[24px]'>Shop By Category</h3>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
-                        <div className="    hover:underline  flex flex-col items-center ">
+                        <div className="hover:underline flex flex-col items-center">
                             <Link to='/'>
-                                <img src="/assets/img/ShopByCategory/MakeUp.png" className='h-[42vh]  xl:h-[]   w-fit object-cover' alt="" />
+                                <img src={CategoryMakeup} className='h-[42vh] xl:h-[] w-fit object-cover' alt="Makeup Category" />
                             </Link>
-                            <Link to='/' className='   p-[1rem]'>Makeup</Link>
+                            <Link to='/' className='p-[1rem]'>Makeup</Link>
                         </div>
-                        <div className="    hover:underline flex flex-col items-center ">
-                            <img src="/assets/img/ShopByCategory/Skincare.png" className=' h-[42vh]     w-fit object-cover' alt="" />
-                            <Link to='/' className='    p-[1rem]'>Skincare</Link>
+                        <div className="hover:underline flex flex-col items-center">
+                            <img src={CategorySkincare} className='h-[42vh] w-fit object-cover' alt="Skincare Category" />
+                            <Link to='/' className='p-[1rem]'>Skincare</Link>
                         </div>
-                        <div className="   hover:underline  flex flex-col items-center ">
-                            <img src="/assets/img/ShopByCategory/Foundation.webp" className='h-[42vh]       w-fit object-cover' alt="" />
-                            <Link to='/' className='    p-[1rem]'>Foundation</Link>
+                        <div className="hover:underline flex flex-col items-center">
+                            <img src={CategoryFoundation} className='h-[42vh] w-fit object-cover' alt="Foundation Category" />
+                            <Link to='/' className='p-[1rem]'>Foundation</Link>
                         </div>
-                        <div className="  hover:underline flex flex-col items-center ">
-                            <img src="/assets/img/ShopByCategory/Newin.webp" className='h-[42vh]       w-fit object-cover' alt="" />
-                            <Link to='/' className='   p-[1rem]'>New In </Link>
+                        <div className="hover:underline flex flex-col items-center">
+                            <img src={CategoryNewIn} className='h-[42vh] w-fit object-cover' alt="New In Category" />
+                            <Link to='/' className='p-[1rem]'>New In</Link>
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
             <Link to='/'>
-                <img src="/assets/img/App Promotion.webp" className='h-[85vh] w-full  md:h-full object-cover object-[40%_50%]' alt="" />
+                <img src={AppPromotionBanner} className='h-[85vh] w-full md:h-full object-cover object-[40%_50%]' alt="App Promotion" />
             </Link>
 
             <div className="bg-[#f5f3f3] px-3">
                 <div className='max-w-[1300px] mx-auto'>
                     <div className="text-center text-[#3a080a]">
                         <h3 className='text-[28px] p-[24px] font-optima'>Charlotte Tilbury Exclusives</h3>
-                        <div className="grid  flex-wrap grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
-                            <div className="      hover:underline flex flex-col items-center ">
-                                <img src="/assets/img/Exclusives/FreeMiniSkincareDuo.webp" className='h-[42vh]      w-fit object-cover' alt="" />
-                                <Link to='/' className='   p-[1rem]'>Free Mini Skincare Duo!</Link>
+                        <div className="grid flex-wrap grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
+                            <div className="hover:underline flex flex-col items-center">
+                                <img src={PromoMiniSkincareDuo} className='h-[42vh] w-fit object-cover' alt="Free Mini Skincare Duo" />
+                                <Link to='/' className='p-[1rem]'>Free Mini Skincare Duo!</Link>
                             </div>
-                            <div className="      hover:underline   flex flex-col items-center ">
-                                <img src="/assets/img/Exclusives/ExclusiveLoyaltyGift.png" className='h-[42vh]      w-fit object-cover' alt="" />
-                                <Link to='/' className='   p-[1rem]'>Unlock An Exclusive Loyalty Gift!</Link>
+                            <div className="hover:underline flex flex-col items-center">
+                                <img src={PromoLoyaltyGift} className='h-[42vh] w-fit object-cover' alt="Exclusive Loyalty Gift" />
+                                <Link to='/' className='p-[1rem]'>Unlock An Exclusive Loyalty Gift!</Link>
                             </div>
-                            <div className="     hover:underline  flex flex-col items-center ">
-                                <img src="/assets/img/Exclusives/ExclusiveBridalBeautyKit.png" className='h-[42vh]       w-fit object-cover' alt="" />
-                                <Link to='/' className='    p-[1rem]'>NEW! App-Exclusive Bridal Beauty Kit!</Link>
+                            <div className="hover:underline flex flex-col items-center">
+                                <img src={PromoBridalBeautyKit} className='h-[42vh] w-fit object-cover' alt="Exclusive Bridal Beauty Kit" />
+                                <Link to='/' className='p-[1rem]'>NEW! App-Exclusive Bridal Beauty Kit!</Link>
                             </div>
-                            <div className="    hover:underline   flex flex-col items-center ">
-                                <img src="/assets/img/Exclusives/SkincareKits.webp" className='h-[42vh]       w-fit object-cover' alt="" />
-                                <Link to='/' className='   p-[1rem]'>Up To 15% Off Skincare Kits!</Link>
+                            <div className="hover:underline flex flex-col items-center">
+                                <img src={PromoSkincareDiscount} className='h-[42vh] w-fit object-cover' alt="Skincare Kits" />
+                                <Link to='/' className='p-[1rem]'>Up To 15% Off Skincare Kits!</Link>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+
             <div className='max-w-[1300px] mx-auto'>
-                <div className=" text-center text-[#3a080a] px-3">
-                    <h3 className='text-[28px] p-[24px] font-semibold  font-optima'>Find Your Perfect Makeup + Skincare Matches</h3>
+                <div className="text-center text-[#3a080a] px-3">
+                    <h3 className='text-[28px] p-[24px] font-semibold font-optima'>Find Your Perfect Makeup + Skincare Matches</h3>
                     <div className="grid flex-wrap grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
-                        <div className="    hover:underline  flex flex-col items-center ">
+                        <div className="hover:underline flex flex-col items-center">
                             <Link to='/'>
-                                <img src="/assets/img/SkinMatches/FoundationShadeMatch.png" className='h-[42vh]    w-fit object-cover' alt="" />
+                                <img src={ServiceFoundationMatch} className='h-[42vh] w-fit object-cover' alt="Foundation Shade Match" />
                             </Link>
-                            <Link to='/' className='   p-[1rem]'>Foundation Shade Match</Link>
+                            <Link to='/' className='p-[1rem]'>Foundation Shade Match</Link>
                         </div>
-                        <div className="    hover:underline flex flex-col items-center ">
-                            <img src="/assets/img/SkinMatches/LipstickShadeMatch.png" className='h-[42vh]       w-fit object-cover' alt="" />
-                            <Link to='/' className='    p-[1rem]'>Lipstick Shade Match</Link>
+                        <div className="hover:underline flex flex-col items-center">
+                            <img src={ServiceLipstickMatch} className='h-[42vh] w-fit object-cover' alt="Lipstick Shade Match" />
+                            <Link to='/' className='p-[1rem]'>Lipstick Shade Match</Link>
                         </div>
-                        <div className="   hover:underline  flex flex-col items-center ">
-                            <img src="/assets/img/SkinMatches/AnalyseYourSkin.png" className='h-[42vh]      w-fit object-cover' alt="" />
-                            <Link to='/' className='    p-[1rem]'>Analyse Your Skin</Link>
+                        <div className="hover:underline flex flex-col items-center">
+                            <img src={ServiceSkinAnalysis} className='h-[42vh] w-fit object-cover' alt="Analyse Your Skin" />
+                            <Link to='/' className='p-[1rem]'>Analyse Your Skin</Link>
                         </div>
-                        <div className="  hover:underline flex flex-col items-center ">
-                            <img src="/assets/img/SkinMatches/OnlineBeautyConsultation.jpeg" className='h-[42vh]      w-fit object-cover' alt="" />
-                            <Link to='/' className='   p-[1rem]'>Book a 1:1 Online Beauty Consultation </Link>
+                        <div className="hover:underline flex flex-col items-center">
+                            <img src={ServiceOnlineConsultation} className='h-[42vh] w-fit object-cover' alt="Book a 1:1 Online Beauty Consultation" />
+                            <Link to='/' className='p-[1rem]'>Book a 1:1 Online Beauty Consultation</Link>
                         </div>
                     </div>
                 </div>
-                <div className='relative'>
+
+                <div className='relative py-[2rem]'>
+                    <div className="text-center mb-[1rem]">
+                        <h3 className='text-[28px] font-optima'>Trending Now</h3>
+                        <p>Discover the beauty secrets the whole world has fallen in love with!</p>
+                    </div>
 
                     <Swiper
-                        pagination={{
-                            type: 'progressbar',
-                        }}
+                        pagination={{ type: 'progressbar' }}
                         slidesPerView={1}
                         breakpoints={{
-                            //   480: {
-                            //      slidesPerView: 2,
-                            //    },
                             768: {
                                 slidesPerView: 3,
                                 spaceBetween: 20,
                             },
-                            //   1024: {
-                            //     slidesPerView: 6,
-                            //     //     spaceBetween: 30,
-                            //     },
-                            // 1440: {
-                            //     slidesPerView: 4,
-                            //     spaceBetween: 40,
-                            // },
                         }}
                         navigation={{
                             prevEl: '.custom-prev-button',
                             nextEl: '.custom-next-button',
-
-
-
                         }}
                         observer={true}
                         modules={[Pagination, Navigation]}
                         className="mySwiper"
                     >
-                        {data.map((items, index) => (
-
-                                <SwiperSlide key={index} >
-                            <div className="w-full  relative">
-                                    <img src={'/assets/img/Products/' + items.main_image} className='  w-full h-fit bg-[#f5f5f5] object-cover' alt="" />
-                                    <div className="absolute right-3 bg-white p-2 rounded-full border-none border top-3">
-                                        <Heart />
+                        {data.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="w-full relative">
+                                    <img src={item.main_image} className='w-full h-fit bg-[#f5f5f5] object-cover' alt={item.name} />
+                                    <div onClick={() => toogleHeart(item.id)} className={`absolute ${heart ? 'border-[#3a080a]' : 'border-none'} right-3 bg-white p-2 rounded-full border top-3 cursor-pointer`}>
+                                        {heart ? <FaHeart size={22} /> : <FaRegHeart size={22} />}
                                     </div>
                                     <div className="p-[16px] flex flex-col gap-3">
-                                        <h3 className='font-bold font-helveticaN '>
-                                            {items.name}
-                                        </h3>
-                                        <p>${items.price.toFixed(2)}</p>
-                                        <button className='border  duration-200  uppercase font-helveticaN py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
+                                        <h3 className='font-bold font-helveticaN'>{item.name}</h3>
+                                        <p>${item.price.toFixed(2)}</p>
+                                        <button className='border duration-200 uppercase font-helveticaN py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
                                             Add to Bag
                                         </button>
                                     </div>
-        </div>
-                                </SwiperSlide>
-                    
-
-
+                                </div>
+                            </SwiperSlide>
                         ))}
-
                     </Swiper>
 
-                    <button className='custom-prev-button absolute left-0 top-1/3  -translate-0.5 shadow-2xl bg-white/80 disabled:opacity-50'>
-                        <ChevronLeft size={24} />
+                    <button className='custom-prev-button hidden md:block absolute right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50'>
+                        <ChevronLeft size={36} />
                     </button>
-                    <button className='custom-next-button absolute right-0 top-1/3  -translate-0.5 shadow-2xl bg-white/80 disabled:opacity-50'>
-                        <ChevronRight size={24} />
+                    <button className='custom-next-button hidden md:block absolute right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50'>
+                        <ChevronRight size={36} />
                     </button>
+                </div>
+
+                <div className="max-w-[900px] mx-auto mb-[2rem]">
+                    <div className="bg-[#f5f5f5] text-center">
+                        <h3 className='text-[28px] py-[1rem] font-optima'>Legendary Beauty For A Reason</h3>
+                        <video src={BrandStoryVideo} autoPlay muted loop playsInline className='m-auto' />
+                        <p className='py-[24px]'>Makeup artist to the stars Skincare performance expert Fragrance innovator</p>
+                    </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;

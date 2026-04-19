@@ -99,7 +99,12 @@ function Footer() {
       </div>
       <img src="/assets/img/Footer/footer.webp" className=' hidden md:block  object-cover w-full' alt="" />
       <img src="/assets/img/Footer/footermobile.png" className='md:hidden block object-cover w-full ' alt="" />
-    </div>
+ <div className="py-[32px] text-[12px] px-[24px]">
+  <p>2013-2026 © Charlotte Tilbury Beauty Inc., trading as Charlotte Tilbury Beauty. All rights reserved. Company number 5493834, registered in Delaware. Business Address 148 Lafayette Street, New York, NY 10013. VAT number: GB 144 0736 30. Contact us</p>
+  
+
+ </div>
+   </div>
 
   )
 }
