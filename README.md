@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/diva.gif" width="400" alt="luxury-makeup"/>
+  <img src="./public/diva.gif" width="350" alt="luxury-makeup"/>
   <h1>✦ Beauty & Cosmetics E-Commerce ✧</h1>
   <p><i>A premium Charlotte Tilbury inspired frontend platform. / Premium səviyyəli kosmetika e-ticarət platforması.</i></p>
 </div>
@@ -30,7 +30,7 @@ This project is a high-end, Charlotte Tilbury-inspired frontend for a beauty web
 ## 🇦🇿 Azərbaycan
 
 <div align="center">
-  <img src="https://i.pinimg.com/originals/d1/0c/da/d10cdac514bc1e0353ae079a5b0e0670.gif" width="400" alt="makeup-aesthetic"/>
+  <img src="https://i.pinimg.com/originals/d1/0c/da/d10cdac514bc1e0353ae079a5b0e0670.gif" width="350" alt="makeup-aesthetic"/>
 </div>
 
 ### ✦ Layihə Haqqında
