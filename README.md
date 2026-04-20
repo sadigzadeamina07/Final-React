@@ -42,4 +42,3 @@ Bu layihə "Charlotte Tilbury" konseptindən ilhamlanaraq yaradılmış, premium
   <br/><br/>
   <i>Developed for elegance and performance. ⟡</i>
 </div>
-  daha yaxsi dizayn ver
