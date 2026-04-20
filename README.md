@@ -13,7 +13,7 @@
   </p>
 </div>
 
----
+<hr style="border: none; height: 2px; background: linear-gradient(to right, transparent, #ff69b4, transparent); margin: 30px 0;">
 
 <br>
 
@@ -39,7 +39,7 @@ npm run dev
 
 <br>
 
----
+<hr style="border: none; height: 2px; background: linear-gradient(to right, transparent, #ff69b4, transparent); margin: 30px 0;">
 
 <br>
 
@@ -65,7 +65,7 @@ npm run dev
 
 <br>
 
----
+<hr style="border: none; height: 2px; background: linear-gradient(to right, transparent, #ff69b4, transparent); margin: 30px 0;">
 
 <br>
 
