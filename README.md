@@ -1,86 +1,103 @@
 <div align="center">
-
-  <!-- Funny Giphy opening -->
-  <img src="https://media.giphy.com/media/3o7TKre2pXE2DeUVP2/giphy.gif" width="350" alt="Makeup Fail Magic" style="border-radius: 12px;"/>
-  <p><i>Darlings, we all have those mornings... but your code shouldn't look like this! ✨</i></p>
-
-  <br />
-
-  <img src="https://i.pinimg.com/originals/d1/0c/da/d10cdac514bc1e0353ae079a5b0e0670.gif" width="450" alt="Luxury Beauty Aesthetic" style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"/>
+  <img src="./public/diva.gif" width="350" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);" alt="luxury-makeup"/>
   
-  <h1>✧ Flawless Beauty E-Commerce ✦</h1>
+  <h1 style="border-bottom: none; margin-bottom: 0;">✦ Beauty & Cosmetics E-Commerce ✧</h1>
+  <p style="font-size: 1.1em; color: #555; margin-top: 5px;">
+    <i>A premium Charlotte Tilbury inspired frontend platform.<br/>
+    Premium səviyyəli kosmetika e-ticarət platforması.</i>
+  </p>
+
   <p>
-    <i>A high-end, elegantly crafted frontend application inspired by the glamour, luxury, and flawless magic of Charlotte Tilbury.</i>
+    <img src="https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+    <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
   </p>
 </div>
 
-<br />
+<br/>
+
+> 🇺🇸 **English Version** below  |  🇦🇿 **Azərbaycan dili** versiyası aşağıdadır
 
 ---
 
 <div align="center">
-  <h2>✦ About The Project ✦</h2>
+  <h2>🇺🇸 English</h2>
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Lipstick.png" alt="Lipstick" width="45" />
 </div>
 
-Step into a world of flawless beauty. This project is a minimalist, luxury-focused frontend web application designed for a premium cosmetics brand. Crafted with meticulous attention to detail, it delivers a seamless and glamorous shopping experience. From silky-smooth animations to an opulent user interface, every pixel is engineered to make users feel like they are interacting with high-end magic. Darlings, it’s all about creating that perfect, glowing digital canvas!
+<br/>
 
-<br />
+### ✦ About the Project
+This project is a high-end, **Charlotte Tilbury-inspired** frontend for a beauty web application. It features a responsive, aesthetic design optimized for an elegant shopping experience.
 
----
+### ⟡ Features
+- 🪞 **Premium UI/UX:** Sophisticated design with seamless sliders and animations (Swiper).
+- 💄 **Categorization:** Structured sections for makeup, skincare, and foundation.
+- 💖 **Wishlist Functionality:** Interactive product saving via heart icons.
+- ⚡ **Modern Architecture:** Built with industry-standard web technologies for optimal performance.
 
-<div align="center">
-  <h2>✧ Key Features ✧</h2>
-</div>
+### ✧ Technologies
+`React v19` ‧ `Tailwind CSS` ‧ `Vite` ‧ `Swiper` ‧ `Axios`
 
-- 🪞 **Opulent UI/UX:** A beautifully responsive, premium design that priorities aesthetics without compromising on usability. Think of it as a flawless filter for the web.
-- ✨ **Flawless Animations:** Smooth, buttery transitions that mimic the luxury unboxing experience, ensuring graceful navigation through the product catalog.
-- 💄 **Curated Categorization:** Elegantly structured sections for Makeup, Skincare, and Foundation to help users discover their perfect, glowing match.
-- 💖 **Wishlist Magic:** An interactive, state-driven product saving feature. Users can effortlessly curate their personalized vault of beauty secrets.
-
-<br />
-
----
-
-<div align="center">
-  <h2>✦ Technologies Used ✦</h2>
-</div>
-
-This sophisticated platform was conjured using a modern, industry-standard technology stack to ensure it runs as beautifully as it looks:
-
-- **[React.js](https://react.dev/)** — The powerful backbone of our dynamic, interactive user interfaces.
-- **[Tailwind CSS](https://tailwindcss.com/)** — For crafting pixel-perfect, bespoke styling with a minimalist, highly aesthetic footprint.
-- **[Axios](https://axios-http.com/)** — For seamless, magical data fetching and robust API communication.
-- **[Vite](https://vitejs.dev/)** — Delivering lightning-fast builds and an unparalleled, seamless development experience.
-
-<br />
-
----
-
-<div align="center">
-  <h2>✧ Installation ✧</h2>
-</div>
-
-To bring this glamorous magic to your local environment, follow these simple steps to unveil the beauty:
+### ✦ How to Run
 
 ```bash
-# 1. Clone this repository to your local machine (Download the magic!)
+# 1. Clone the repository
 git clone <repo-url>
 
-# 2. Navigate into the project directory
-cd <project-folder>
-
-# 3. Install the necessary enchantments (dependencies)
+# 2. Install dependencies
 npm install
 
-# 4. Ignite the glow (start the development server)
+# 3. Start the development server
 npm run dev
 ```
 
-<br />
+<br/>
 
 ---
 
 <div align="center">
-  <p><i>"Life is short, darling, but your lashes (and your code) shouldn't be!"</i></p>
-  <p><b>Prepared with elegance, precision, and a touch of magic. ✧</b></p>
+  <h2>🇦🇿 Azərbaycan</h2>
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Mirror.png" alt="Mirror" width="45" />
+  
+  <br/><br/>
+  <img src="https://i.pinimg.com/originals/d1/0c/da/d10cdac514bc1e0353ae079a5b0e0670.gif" width="450" style="border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);" alt="makeup-aesthetic"/>
+</div>
+
+<br/>
+
+### ✦ Layihə Haqqında
+Bu layihə **"Charlotte Tilbury"** konseptindən ilhamlanaraq yaradılmış, premium səviyyəli kosmetika e-ticarət platformasının frontend hissəsidir. Layihə estetik və müasir istifadəçi təcrübəsinə əsaslanır.
+
+### ⟡ Xüsusiyyətlər
+- 🪞 **Premium Dizayn:** Yüksək keyfiyyətli istifadəçi interfeysi və axıcı animasiyalar.
+- 💄 **Kateqoriyalar:** Makiyaj, dəriyə qulluq və tonal kremlər üçün xüsusi bölmələr.
+- 💖 **İstəklər Siyahısı (Wishlist):** Məhsulların ürək butonları ilə seçilmişlərə əlavə edilməsi.
+- ⚡ **Müasir Texnologiyalar:** Sürətli və etibarlı performans üçün ən son rəsmi veb alətlərin istifadəsi.
+
+### ✧ Texnologiyalar
+`React v19` ‧ `Tailwind CSS` ‧ `Vite` ‧ `Swiper` ‧ `Axios`
+
+### ✦ Necə İşə Salmalı?
+
+```bash
+# 1. Layihəni yükləyin
+git clone <repo-url>
+
+# 2. Paketləri quraşdırın
+npm install
+
+# 3. Serveri başladın
+npm run dev
+```
+
+<br/>
+
+---
+
+<div align="center">
+  <br/>
+  <h3 style="color: #4a3f35; font-weight: 600;"><i>"Life is short, but your lashes shouldn't be!" ✦</i></h3>
+  <p style="color: #8c7373;"><i>Developed for elegance and performance. ⟡</i></p>
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Symbol/Sparkles.png" alt="Sparkles" width="30" />
 </div>
