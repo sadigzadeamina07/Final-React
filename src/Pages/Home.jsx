@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/scrollbar';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import HeroDesktopBanner from '/assets/img/Hero.png';
@@ -29,28 +30,29 @@ import ProductFlawlessFilterPackshot from '/assets/img/Products/HFF-PACKSHOT-OPE
 import ProductLipCheatPillowTalk from '/assets/img/Products/LIPCHEAT-PT-LEGENDARY-PDP.png';
 import ProductMagicCream50ml from '/assets/img/Products/MC-50ml.png';
 import axios from 'axios';
+import { TbDiamondsFilled } from "react-icons/tb";
 
 function Home() {
-const [trending,setTrending]=useState([])
-  useEffect(()=>{
-    const fetchdata=async ()=>{
-try{
-    const response=await axios.get('/Data/TrendingNow.json')
-    setTrending(response.data)
-}
-catch(error){
-console.error(error);
+    const [trending, setTrending] = useState([])
+    useEffect(() => {
+        const fetchdata = async () => {
+            try {
+                const response = await axios.get('/Data/TrendingNow.json')
+                setTrending(response.data)
+            }
+            catch (error) {
+                console.error(error);
 
-}
+            }
 
-  }
-fetchdata()
+        }
+        fetchdata()
 
-  },[])
+    }, [])
     const [heart, setHeart] = useState(false);
 
-    const toogleHeart = (id) => {
-        if (id) setHeart(!heart);
+    const toogleHeart = () => {
+        setHeart(!heart);
     };
 
     return (
@@ -115,7 +117,100 @@ fetchdata()
                     </div>
                 </div>
             </div>
+            <div className='relative px-[1rem] py-[2rem]'>
+                <div className="text-center mb-[1rem]">
+                    <h3 className='text-[28px] font-optima'>Trending Now</h3>
+                    <p>Discover the beauty secrets the whole world has fallen in love with!</p>
+                </div>
 
+                <Swiper
+                    pagination={{
+                        type: 'progressbar',
+                        hide: false,
+                        draggable: true
+
+                    }}
+                    slidesPerView={2}
+                    spaceBetween={10}
+                    breakpoints={{
+                        768: {
+                            slidesPerView: 4,
+                            spaceBetween: 10,
+                        },
+                        1440: {
+                            slidesPerView: 5,
+                            spaceBetween: 30,
+                        }
+                    }}
+                    navigation={{
+                        prevEl: '.custom-prev-button',
+                        nextEl: '.custom-next-button',
+                    }}
+                    observer={true}
+                    modules={[Pagination, Navigation, Scrollbar]}
+                    className="mySwiper relative !pb-10 
+          [&_.swiper-pagination-progressbar]:!bg-gray-200 
+    [&_.swiper-pagination-progressbar]:!h-[4px] 
+    [&_.swiper-pagination-progressbar]:!w-[200px] 
+    [&_.swiper-pagination-progressbar]:!top-auto 
+    [&_.swiper-pagination-progressbar]:!bottom-0 
+    [&_.swiper-pagination-progressbar]:!left-1/2 
+    [&_.swiper-pagination-progressbar]:!-translate-x-1/2 
+    [&_.swiper-pagination-progressbar]:!rounded-full 
+
+    [&_.swiper-pagination-progressbar-fill]:!bg-[#3a080a] 
+    [&_.swiper-pagination-progressbar-fill]:!rounded-full
+           "
+                >
+                    {trending.map((item, index) => (
+                        <SwiperSlide key={index} className='h-auto'>
+                            <div className="w-full   group relative">
+                                <Link to='/DetailPage'>
+                                    <img src={item.image} className='w-full h-fit    bg-[#f5f5f5] object-cover' alt={item.name} />
+                                    <img src={item.image2} className='w-full h-fit    absolute inset-0  duration-300 hover:opacity-100 opacity-0    bg-[#f5f5f5] object-cover' alt={item.name} />
+                                </Link>
+<Link to='/'> </Link>
+                                <div onClick={() => toogleHeart(item.index)} className={`absolute ${heart ? 'border-[#3a080a]' : 'border-none'} right-3 bg-white p-2 rounded-full border top-3 cursor-pointer`}>
+                                    {heart ? <FaHeart size={22} /> : <FaRegHeart size={22} />}
+                                </div>
+
+                                <div className="p-[10px]  text-[1rem]     font-helveticaN  ">
+                                    <div className="px-[1rem] text-sm  ">
+                                        <Link to='/DetailPage'>
+                                            <h3 className='font-bold  uppercase  line-clamp-1'>{item.title}</h3>
+                                            <p className=' '>{item.title2}</p>
+                                        </Link>
+
+
+                                    </div>
+                                    <div className=" mt-15">
+                                        <p className="ml-[1rem] text-sm font-bold ">$23.00</p>
+
+
+                                    </div>
+
+
+                                </div>
+                                <Link to='/DetailPage'>
+                                    <button className='border mt-auto duration-200 w-full font-helveticaN   uppercase py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
+                                        Add to basket
+                                    </button>
+
+                                </Link>
+
+
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+
+                <button className='custom-prev-button hidden md:block absolute right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50'>
+                    <ChevronLeft size={36} />
+                </button>
+                <button className='custom-next-button hidden md:block absolute right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50'>
+                    <ChevronRight size={36} />
+                </button>
+            </div>
             <div className='max-w-[1300px] mx-auto'>
                 <div className="text-center text-[#3a080a] px-3">
                     <h3 className='text-[28px] p-[24px] font-semibold font-optima'>Find Your Perfect Makeup + Skincare Matches</h3>
@@ -141,62 +236,16 @@ fetchdata()
                     </div>
                 </div>
 
-                <div className='relative py-[2rem]'>
-                    <div className="text-center mb-[1rem]">
-                        <h3 className='text-[28px] font-optima'>Trending Now</h3>
-                        <p>Discover the beauty secrets the whole world has fallen in love with!</p>
-                    </div>
 
-                    <Swiper
-                        pagination={{ type: 'progressbar' }}
-                        slidesPerView={1}
-                        breakpoints={{
-                            768: {
-                                slidesPerView: 5,
-                                spaceBetween: 20,
-                            },
-                        }}
-                        navigation={{
-                            prevEl: '.custom-prev-button',
-                            nextEl: '.custom-next-button',
-                        }}
-                        observer={true}
-                        modules={[Pagination, Navigation]}
-                        className="mySwiper"
-                    >
-                        {trending.map((item, index) => (
-                            <SwiperSlide key={index}>
-                                <div className="w-full relative">
-                                    <img src={item.image} className='w-full h-fit bg-[#f5f5f5] object-cover' alt={item.name} />
-                                    <div onClick={() => toogleHeart(item.index)} className={`absolute ${heart ? 'border-[#3a080a]' : 'border-none'} right-3 bg-white p-2 rounded-full border top-3 cursor-pointer`}>
-                                        {heart ? <FaHeart size={22} /> : <FaRegHeart size={22} />}
-                                    </div>
-                                    <div className="p-[16px] flex flex-col gap-3">
-                                        <h3 className='font-bold font-helveticaN'>{item.title}</h3>
-                                        <p>{item.price}</p>
-                                        <button className='border duration-200 uppercase font-helveticaN py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
-                                            Add to Bag
-                                        </button>
-                                    </div>
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
 
-                    <button className='custom-prev-button hidden md:block absolute right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50'>
-                        <ChevronLeft size={36} />
-                    </button>
-                    <button className='custom-next-button hidden md:block absolute right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50'>
-                        <ChevronRight size={36} />
-                    </button>
-                </div>
 
-                <div className="max-w-[900px] mx-auto mb-[2rem]">
-                    <div className="bg-[#f5f5f5] text-center">
-                        <h3 className='text-[28px] py-[1rem] font-optima'>Legendary Beauty For A Reason</h3>
-                        <video src={BrandStoryVideo} autoPlay muted loop playsInline className='m-auto' />
-                        <p className='py-[24px]'>Makeup artist to the stars Skincare performance expert Fragrance innovator</p>
-                    </div>
+            </div>
+
+            <div className="max-w-[900px] mx-auto mb-[2rem]">
+                <div className="bg-[#f5f5f5] text-center">
+                    <h3 className='text-[28px] py-[1rem] font-optima'>Legendary Beauty For A Reason</h3>
+                    <video src={BrandStoryVideo} autoPlay muted loop playsInline className='m-auto' />
+                    <p className='py-[24px] flex gap-3  md:flex-row flex-col justify-center items-center font-bold font-helveticaN uppercase'><span> Makeup artist to the stars </span> <TbDiamondsFilled size={22} style={{ transform: 'scaleX(0.7)' }} /> <span>Skincare performance expert </span> <TbDiamondsFilled size={22} style={{ transform: 'scaleX(0.7)' }} /><span> Fragrance innovator </span> </p>
                 </div>
             </div>
         </div>
