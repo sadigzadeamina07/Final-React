@@ -2,7 +2,9 @@ import React from 'react'
 
 function Fave() {
   return (
-    <div>Fave</div>
+    <div className='bg-[#f4f3f3] py-[24px]'>
+
+    </div>
   )
 }
 

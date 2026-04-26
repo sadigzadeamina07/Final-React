@@ -31,7 +31,7 @@ function Detail() {
   return (
     <div>
       {
-trending.map((items,index)=>(
+trending.slice(0,1).map((items,index)=>(
   <img src={items.image} alt="" />
 
 ))

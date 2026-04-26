@@ -12,6 +12,7 @@ function Header() {
   const [index, setIndex] = useState(0)
   const [fade, setFade] = useState(true)
   const [open, setOpen] = useState(false)
+  const [Basketopen, setBasketOpen] = useState(false)
   console.log(fade);
 
   useEffect(() => {
@@ -33,6 +34,9 @@ function Header() {
   console.log(fade);
   const ToggleMenu = () => {
     setOpen(!open)
+  }
+  const ToggleBasket = () => {
+    setBasketOpen(!Basketopen)
   }
   return (
     <header className='text-[#340c0c] relative' >
@@ -58,16 +62,61 @@ function Header() {
               <User size={25} strokeWidth={1} color='#340c0c' />
               <Heart size={25} strokeWidth={1} color='#340c0c' />
               <PiMagnifyingGlass size={25} />
-              <div className='flex items-center gap-2'>
+              <div className='relative font-helveticaN group flex items-center gap-2'>
 
-                <img src="/assets/img/BasketIcon.svg" className='w-[35px] relative ' alt="" />
-                <div className="bg-[#340c0c] text-white  -mt-1.5 -ml-5  px-[8px]  rounded-full border">1</div>
+                <div className=" flex items-center gap-2">
+                  <img src="/assets/img/BasketIcon.svg " onClick={ToggleBasket} className='w-[35px] relative  ' alt="" />
+                  <div className={`fixed h-screen right-0 top-0 w-[400px] flex flex-col duration-400 z-25 ${Basketopen ? 'translate-x-0' : 'translate-x-full'} bg-white `}>
+                    
+                  <div className="py-[16px] ">
+                      <div className=" flex justify-end  text-[24px]">
+                      <X size={38} onClick={ToggleBasket}  strokeWidth={1} />
+                      
+                      </div>
+
+                      <h3 className='  text-[24px] uppercase font-helveticaN  mx-[16px]'>Added to bag</h3>
+                                </div>
+                      
+                      <div className=" overflow-y-auto    ">
+<div className="py-[16px] flex  items-center gap-[5px] p-[16px] mb-[8px] ">
+                        <img src="/assets/img/Footer/Bus.png" className='w-[50px]  h-[30px]' alt="" />
+                      <p className='font-sans'>Your order qualifies for <span className='font-semibold'>free ground shipping</span></p>
+                      </div>
+
+                      </div>
+
+<div className="p-[16px] w-full border-t bg-white border-t-[#d6cece]  mt-auto">
+        <button className='border border-[#340c0c] hover:bg-[#340c0c] w-full hover:text-white h-[44px] uppercase'>
+            View bag (5)
+        </button>
+    </div>
+
+
+                  </div>
+                  <div className="bg-[#340c0c] text-white  -mt-1.5 -ml-5 px-[8px]  rounded-full border">1</div>
+
+                </div>
+
+                <div className="absolute  top-[100%] opacity-0  mt-[16px] group-hover:opacity-100 right-0 z-20  ">
+                  <div className=" bg-white p-[1rem] shadow-[0_0_2px_2px_#eae6e6]   w-[440px]">
+                    <div className="flex text-[24px] mb-1 justify-between">
+                      <h3 className='uppercase  '>Your Bag</h3>
+                      <p>$0.00</p>
+                    </div>
+                    <div className="flex pb-[8px]  text-[#856d6d] text-[18px] uppercase mb-1 justify-between">
+                      <h3 className='  '>0 items</h3>
+                      <p>EXCL. delivery</p>
+                    </div>
+                    <div className="border-[#eae6e6] border-1 mt-[8px]"></div>
+                    <p className='py-[5px] font-sans'>There are no items in your bag</p>
+                  </div>
+                </div>
               </div>
 
             </div>
 
           </div>
-          <div className="flex  md:hidden  h-[10vh] justify-between items-center ">
+          <div className="flex relative md:hidden  h-[10vh] justify-between items-center ">
             <div className="flex  gap-4">
               <Menu size={25} strokeWidth={1} onClick={ToggleMenu} color='#340c0c' />
 
@@ -83,12 +132,13 @@ function Header() {
               <img src="/assets/img/logo.svg" className='w-[150px] m-auto' alt="" />
             </Link>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 py-2">
               <User size={25} strokeWidth={1} color='#340c0c' />
-              <div className='flex items-center gap-2'>
 
-                <img src="/assets/img/BasketIcon.svg" className='w-[35px] relative ' alt="" />
+              <div className=" flex items-center gap-2">
+                <img src="/assets/img/BasketIcon.svg " className='w-[35px]  ' alt="" />
                 <div className="bg-[#340c0c] text-white  -mt-1.5 -ml-5 px-[8px]  rounded-full border">1</div>
+
               </div>
             </div>
           </div>
@@ -98,7 +148,7 @@ function Header() {
             <ul className='font-helveticaN flex flex-wrap  font-black justify-center  gap-4  lg:gap-7 uppercase'>
               <li className='text-[#a06464] border-b border-transparent pb-2 hover:border-b-[#a06464]' ><Link to='/' >Up to a magical 20% off</Link></li>
               <li className='  group border-b  border-transparent pb-2 hover:border-[#340c0c]'><Link to='/' >New In</Link>
-                <div className="absolute w-full bg-white p-2   flex flex-col  justify-center top-full opacity-0 group-hover:opacity-100 duration-200   z-50  left-0">
+                <div className="absolute w-full bg-white p-2   flex flex-col  justify-center top-full opacity-0  invisible group-hover:visible group-hover:opacity-100 duration-200   z-50  left-0">
                   <ul className=' mx-auto  font-normal font-sans text-[14px]  normal-case'>
                     <li className="">
                       <Link to='/' className="">Shop New In</Link>
