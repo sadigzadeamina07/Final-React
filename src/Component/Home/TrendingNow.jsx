@@ -8,30 +8,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import axios from 'axios';
+
 import { BasketProvider, useBasket } from '../../Context/BasketContext';
+import { useProduct } from '../../Context/DataContext';
 
 function TrendingNow() {
-const{handleAddtoBasket}=useBasket()
-    const [trending, setTrending] = useState([]);
-    const [likedItems, setLikedItems] = useState([]); 
- 
+    const { trending } = useProduct()
+    const { handleAddtoBasket } = useBasket()
+    const [likedItems, setLikedItems] = useState([]);
 
-    useEffect(() => {
-        const fetchdata = async () => {
-            try {
-                const response = await axios.get('/Data/TrendingNow.json')
-                setTrending(response.data)
-            }
-            catch (error) {
-                console.error(error);
-
-            }
-
-        }
-        fetchdata()
-
-    }, [])
     const [heart, setHeart] = useState(false);
 
     const toogleHeart = (index) => {
@@ -99,7 +84,7 @@ const{handleAddtoBasket}=useBasket()
                                     <img src={item.image} className='w-full h-fit    bg-[#f5f5f5] object-cover' alt={item.name} />
                                     <img src={item.image2} className='w-full h-fit    absolute inset-0  duration-300 hover:opacity-100 opacity-0    bg-[#f5f5f5] object-cover' alt={item.name} />
                                 </Link>
-                                <Link to='/'> </Link>
+                                <Link to='/home'> </Link>
                                 <div onClick={() => toogleHeart(index)} className={`absolute ${isLiked ? 'border-[#3a080a]' : 'border-none'} right-3 bg-white p-2 rounded-full border top-3 cursor-pointer`}>
                                     {isLiked ? <FaHeart size={22} /> : <FaRegHeart size={22} />}
                                 </div>
@@ -119,9 +104,9 @@ const{handleAddtoBasket}=useBasket()
 
 
                                 </div>
-                                    <button  onClick={()=> handleAddtoBasket(item)} className='border mt-auto duration-200 w-full font-helveticaN   uppercase py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
-                                        Add to basket
-                                    </button>
+                                <button onClick={() => handleAddtoBasket(item)} className='border mt-auto duration-200 w-full font-helveticaN   uppercase py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a]'>
+                                    Add to basket
+                                </button>
 
 
                             </div>

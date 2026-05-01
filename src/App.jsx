@@ -4,16 +4,20 @@ import Header from './Component/Header'
 import AppRouter from './Router/AppRouter'
 import Footer from './Component/Footer'
 import { BasketProvider } from './Context/BasketContext'
+import { DataProvider } from './Context/DataContext'
 
 function App() {
   return (
     <>
-      <BasketProvider>
+      <DataProvider>
+        <BasketProvider>
 
-        <Header />
-        <AppRouter />
-        <Footer />
-      </BasketProvider>
+          <Header />
+          <AppRouter />
+          <Footer />
+        </BasketProvider>
+
+      </DataProvider>
 
 
     </>

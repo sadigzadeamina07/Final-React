@@ -14,19 +14,19 @@ function Exclusives() {
                     <div className="grid flex-wrap grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
                         <div className="hover:underline flex flex-col items-center">
                             <img src={PromoMiniSkincareDuo} className='h-[42vh] w-fit object-cover' alt="Free Mini Skincare Duo" />
-                            <Link to='/' className='p-[1rem]'>Free Mini Skincare Duo!</Link>
+                            <Link to='/home' className='p-[1rem]'>Free Mini Skincare Duo!</Link>
                         </div>
                         <div className="hover:underline flex flex-col items-center">
                             <img src={PromoLoyaltyGift} className='h-[42vh] w-fit object-cover' alt="Exclusive Loyalty Gift" />
-                            <Link to='/' className='p-[1rem]'>Unlock An Exclusive Loyalty Gift!</Link>
+                            <Link to='/home' className='p-[1rem]'>Unlock An Exclusive Loyalty Gift!</Link>
                         </div>
                         <div className="hover:underline flex flex-col items-center">
                             <img src={PromoBridalBeautyKit} className='h-[42vh] w-fit object-cover' alt="Exclusive Bridal Beauty Kit" />
-                            <Link to='/' className='p-[1rem]'>NEW! App-Exclusive Bridal Beauty Kit!</Link>
+                            <Link to='/home' className='p-[1rem]'>NEW! App-Exclusive Bridal Beauty Kit!</Link>
                         </div>
                         <div className="hover:underline flex flex-col items-center">
                             <img src={PromoSkincareDiscount} className='h-[42vh] w-fit object-cover' alt="Skincare Kits" />
-                            <Link to='/' className='p-[1rem]'>Up To 15% Off Skincare Kits!</Link>
+                            <Link to='/home' className='p-[1rem]'>Up To 15% Off Skincare Kits!</Link>
                         </div>
                     </div>
                 </div>

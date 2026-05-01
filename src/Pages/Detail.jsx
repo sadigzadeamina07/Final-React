@@ -11,23 +11,9 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 import { TbDiamondsFilled } from "react-icons/tb";
+import { useProduct } from '../Context/DataContext';
 function Detail() {
-      const [trending, setTrending] = useState([])
-    useEffect(() => {
-        const fetchdata = async () => {
-            try {
-                const response = await axios.get('/Data/TrendingNow.json')
-                setTrending(response.data)
-            }
-            catch (error) {
-                console.error(error);
-
-            }
-
-        }
-        fetchdata()
-
-    }, [])
+    const {trending} =useProduct()
   return (
     <div>
       {
