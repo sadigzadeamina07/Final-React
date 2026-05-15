@@ -272,7 +272,7 @@ function Footer() {
       </div>
 
 
-      <div className="my-8 md:my-12 px-6 md:ml-10">
+      <div className="my-8 md:my-12 px-6 md:px-10 max-w-[1300px] mx-auto">
         <div className="grid gap-0 md:gap-5 grid-cols-1 md:grid-cols-4">
 
           {/* ── ABOUT ── */}
@@ -316,14 +316,14 @@ function Footer() {
             <h3 className='font-helveticaN uppercase font-bold'>SIGN UP TO RECEIVE EMAILS</h3>
             <p className='mb-3'>Be the first to know about products, offers and tips</p>
 
-            <form noValidate onSubmit={handleSignUp} className="flex flex-col">
+            <form noValidate onSubmit={handleSignUp} className="flex flex-col w-full max-w-full overflow-hidden">
               <span className='text-sm'> Email Address</span>
               <div className="flex w-full mt-1">
                 <input
                   type="text"
                   value={email}
                   onChange={handleEmailChange}
-                  className={`focus:outline-0 flex-1 px-4 py-2 border transition-colors ${
+                  className={`focus:outline-0 min-w-0 flex-1 px-4 py-2 border transition-colors ${
                     emailError && emailTouched
                       ? 'border-red-500'
                       : 'border-[#ae9e9e] border-r-0'

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
@@ -8,21 +8,34 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import axios from 'axios';
 
-import { BasketProvider, useBasket } from '../../Context/BasketContext';
-import { useProduct } from '../../Context/DataContext';
+import { useBasket } from '../../Context/BasketContext';
 import { useWishlist } from '../../Context/WishlistContext';
 
-function TrendingNow() {
-    const { trending } = useProduct();
+function ShopBestSellers() {
+    const [bestSellers, setBestSellers] = useState([]);
     const { handleAddtoBasket } = useBasket();
     const { toggleWishlist, isInWishlist } = useWishlist();
+
+    useEffect(() => {
+        const fetchBestSellers = async () => {
+            try {
+                const response = await axios.get('/Data/CharlotteTilbury_BestSellers_Full.json');
+                setBestSellers(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchBestSellers();
+    }, []);
+
+    if (!bestSellers.length) return null;
 
     return (
         <div className='relative px-[1rem] py-[2rem]'>
             <div className="text-center mb-[1rem]">
-                <h3 className='text-[28px] font-optima'>Trending Now</h3>
-                <p>Discover the beauty secrets the whole world has fallen in love with!</p>
+                <h3 className='text-[28px] font-optima'>Shop Best Sellers</h3>
             </div>
 
             <Swiper
@@ -30,13 +43,12 @@ function TrendingNow() {
                     type: 'progressbar',
                     hide: false,
                     draggable: true
-
                 }}
                 slidesPerView={2}
                 spaceBetween={10}
                 allowTouchMove={true}
                 breakpoints={{
-                    768: {
+                            768: {
                         slidesPerView: 4,
                         spaceBetween: 10,
                         allowTouchMove: false,
@@ -48,8 +60,8 @@ function TrendingNow() {
                     }
                 }}
                 navigation={{
-                    prevEl: '.custom-prev-button',
-                    nextEl: '.custom-next-button',
+                    prevEl: '.bestsellers-prev-button',
+                    nextEl: '.bestsellers-next-button',
                 }}
                 observer={true}
                 modules={[Pagination, Navigation, Scrollbar]}
@@ -67,7 +79,7 @@ function TrendingNow() {
 [&_.swiper-pagination-progressbar-fill]:!rounded-full
        "
             >
-                {trending.map((item, index) => {
+                {bestSellers.map((item, index) => {
                     const isLiked = isInWishlist(item);
                     return (
                         <SwiperSlide key={index} className='!h-auto flex'>
@@ -100,11 +112,11 @@ function TrendingNow() {
                 })}
             </Swiper>
 
-            <button className='custom-prev-button hidden md:block absolute left-1 lg:left-auto lg:right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50 bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0'>
+            <button className='bestsellers-prev-button hidden md:block absolute left-1 lg:left-auto lg:right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50 bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0'>
                 <ChevronLeft size={24} className="lg:hidden" />
                 <ChevronLeft size={36} className="hidden lg:block" />
             </button>
-            <button className='custom-next-button hidden md:block absolute right-1 lg:right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50 bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0'>
+            <button className='bestsellers-next-button hidden md:block absolute right-1 lg:right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50 bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0'>
                 <ChevronRight size={24} className="lg:hidden" />
                 <ChevronRight size={36} className="hidden lg:block" />
             </button>
@@ -112,4 +124,4 @@ function TrendingNow() {
     );
 }
 
-export default TrendingNow;
+export default ShopBestSellers;

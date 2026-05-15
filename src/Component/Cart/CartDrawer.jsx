@@ -4,23 +4,7 @@ import { useBasket } from '../../Context/BasketContext';
 import { useWishlist } from '../../Context/WishlistContext';
 import useScrollLock from '../../hooks/useScrollLock';
 import { Link } from 'react-router';
-// Hardcoded recommendations and gifts as per the visual requirements
-const MOCK_RECOMMENDATIONS = [
-  {
-    id: 'rec1',
-    title: 'AIRBRUSH FLAWLESS BLUR CONCEALER',
-    shade: '4 Fair-Medium',
-    price: 36.00,
-    image: 'https://via.placeholder.com/80x100/f8f8f8/333333?text=Concealer',
-  },
-  {
-    id: 'rec2',
-    title: 'AIRBRUSH FLAWLESS FINISH POWDER',
-    shade: '2 Medium',
-    price: 48.00,
-    image: 'https://via.placeholder.com/80x100/f8f8f8/333333?text=Powder',
-  }
-];
+
 
 export default function CartDrawer() {
   const { isCartOpen, closeCart } = useUI();
@@ -58,7 +42,7 @@ export default function CartDrawer() {
       />
 
       <div 
-        className={`fixed right-0 bottom-0 top-auto md:top-0 w-full h-[85dvh] md:h-full md:w-[450px] bg-white z-[1000] transform transition-transform duration-500 ease-in-out shadow-2xl flex flex-col ${isOpen ? 'translate-y-0 md:translate-x-0 md:translate-y-0' : 'translate-y-full md:translate-y-0 md:translate-x-full'} rounded-t-2xl md:rounded-none`}
+        className={`fixed right-0 bottom-0 top-auto md:top-0 w-full h-[85dvh] md:h-full md:w-[450px] bg-white z-[1000] transform transition-all duration-500 ease-in-out shadow-2xl flex flex-col ${isOpen ? 'translate-y-0 md:translate-x-0 md:translate-y-0 opacity-100' : 'translate-y-full md:translate-y-0 md:translate-x-full opacity-0'} rounded-t-2xl md:rounded-none`}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-slate-200">
@@ -150,40 +134,7 @@ export default function CartDrawer() {
             )}
           </div>
 
-          {/* Use It With Carousel */}
-          {basket.length > 0 && (
-            <div className="bg-slate-50 p-4 mt-6">
-              <h3 className="font-serif text-lg text-[#4A0404] mb-4">Use it with</h3>
-              <div className="flex overflow-x-auto gap-4 pb-4 snap-x">
-                {MOCK_RECOMMENDATIONS.map(rec => (
-                  <div key={rec.id} className="min-w-[240px] bg-white p-3 snap-start flex gap-3 shadow-sm border border-slate-100">
-                    <img src={rec.image} alt={rec.title} className="w-16 h-20 object-contain" />
-                    <div className="flex flex-col justify-between">
-                      <div>
-                        <h4 className="font-serif text-[11px] leading-tight uppercase tracking-wide">{rec.title}</h4>
-                        <p className="text-[11px] text-slate-500 mt-1">{rec.shade}</p>
-                        <p className="text-xs font-semibold mt-1">${rec.price.toFixed(2)}</p>
-                      </div>
-                      <button className="text-xs font-sans font-semibold border border-black py-1 mt-2 hover:bg-black hover:text-white transition-colors">
-                        ADD TO BAG
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
-          {/* Free Samples */}
-          <div className="p-4 mt-4 mx-4 bg-orange-50 border border-orange-100 flex items-start gap-4">
-            <svg className="w-8 h-8 text-[#4A0404]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            <div>
-              <h4 className="font-serif text-sm tracking-wide">2 FREE SAMPLES with every order!</h4>
-              <p className="text-xs text-slate-700 mt-1 font-sans leading-relaxed">Choose 2 free samples at checkout! Including Charlotte's Fragrance, Skincare & Makeup!</p>
-            </div>
-          </div>
 
 
         </div>

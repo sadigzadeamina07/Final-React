@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../Component/Home/Hero';
 import ShopByCategory from '../Component/Home/ShopByCategory';
+import ShopBestSellers from '../Component/Home/ShopBestSellers';
 import AppPromotion from '../Component/Home/AppPromotion';
 import Exclusives from '../Component/Home/Exclusives';
 import TrendingNow from '../Component/Home/TrendingNow';
@@ -12,6 +13,7 @@ function Home() {
         <div className='text-[#3a080a]'>
             <Hero />
             <ShopByCategory />
+            <ShopBestSellers />
             <AppPromotion />
             <Exclusives />
             <TrendingNow />

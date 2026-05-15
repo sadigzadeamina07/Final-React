@@ -226,11 +226,20 @@ const ProductCard = ({ product, handleAddtoBasket, toggleWishlist, isInWishlist 
     <div className="flex flex-col group relative w-full h-full">
       {/* Product Image Box */}
       <Link to='/product' state={{ product }} className="relative bg-[#f5f5f5] w-full aspect-square block overflow-hidden">
-        <div className="w-full h-full p-4">
+        <div className="absolute inset-0 w-full h-full">
+          {/* Main Image */}
           <img 
             src={product.images?.main || product.cardImages?.main || product.image} 
             alt={product.title} 
-            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-100 group-hover:opacity-0 transition-opacity duration-500"
+            loading="lazy"
+          />
+          {/* Hover Image */}
+          <img 
+            src={product.images?.hover || product.cardImages?.hover || product.selectedShade?.gallery?.[0] || product.galleryImages?.[2] || product.images?.main || product.cardImages?.main || product.image} 
+            alt={`${product.title} hover`} 
+            className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            loading="lazy"
           />
         </div>
         

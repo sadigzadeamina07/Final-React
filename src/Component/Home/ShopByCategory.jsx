@@ -13,7 +13,7 @@ function ShopByCategory() {
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mb-[24px]">
                     <div className="hover:underline flex flex-col items-center">
                         <Link to='/home'>
-                            <img src={CategoryMakeup} className='h-[42vh] xl:h-[] w-fit object-cover' alt="Makeup Category" />
+                            <img src={CategoryMakeup} className='h-[42vh] w-fit object-cover' alt="Makeup Category" />
                         </Link>
                         <Link to='/home' className='p-[1rem]'>Makeup</Link>
                     </div>

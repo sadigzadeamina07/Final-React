@@ -45,7 +45,28 @@ export default function SearchPage() {
   // Pagination Logic
   const [currentPage, setCurrentPage] = React.useState(1);
   const itemsPerPage = 12;
-  const currentItems = hasQuery ? searchResults : (trending || []);
+
+  // Parse price helper for local sorting
+  const parsePrice = React.useCallback((product) => {
+    const priceStr = product?.discountPrice || product?.price || '0';
+    if (typeof priceStr === 'string' && priceStr.toUpperCase() === 'FREE') return 0;
+    const cleaned = String(priceStr).replace(/[^0-9.]/g, '');
+    return parseFloat(cleaned) || 0;
+  }, []);
+
+  // Apply sorting to ALL items (search results already sorted by hook, but trending items need local sort)
+  const currentItems = React.useMemo(() => {
+    let items = hasQuery ? searchResults : (trending || []);
+    if (!hasQuery && sortBy !== 'Recommended') {
+      items = [...items];
+      if (sortBy === 'PriceLowToHigh') {
+        items.sort((a, b) => parsePrice(a) - parsePrice(b));
+      } else if (sortBy === 'PriceHighToLow') {
+        items.sort((a, b) => parsePrice(b) - parsePrice(a));
+      }
+    }
+    return items;
+  }, [hasQuery, searchResults, trending, sortBy, parsePrice]);
   
   // Make sure we have at least 5 pages for demonstration if the items array is very small
   const realTotalPages = Math.ceil(currentItems.length / itemsPerPage) || 1;

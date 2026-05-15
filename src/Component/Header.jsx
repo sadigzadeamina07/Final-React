@@ -306,9 +306,10 @@ export const menuData = [
 
 export const mobileMenuData = [
   {
-    title: "GIFT MAGIC THIS MOTHER'S DAY!",
-    image: "/assets/img/Header/Cat_box_-_BYOBK_-_MWC_-_Launch_2026-05-09_12_13_21.568762.webp",
+    title: "IT'S BACK! AIRBRUSH FLAWLESS \nBLUR CONCEALER",
+    image: "https://images.ctfassets.net/wlke2cbybljx/5Uons9BGIEEp6woKgm54fT/635e65c4fb143768379445a279b6a541/B9_-_Concealer___Complexion_Brush.png?w=660&h=660&fit=fill&q=80&fm=webp",
     highlight: true,
+    sparkles: true,
   },
   {
     title: "NEW IN",
@@ -466,6 +467,8 @@ function HeaderInner() {
   const cartHoverTimeoutRef = React.useRef(null);
 
   const handleCartEnter = () => {
+    // Guard: only show hover dropdown on desktop-width screens
+    if (window.innerWidth < 1024) return;
     if (cartHoverTimeoutRef.current) clearTimeout(cartHoverTimeoutRef.current);
     setIsCartDropdownOpen(true);
   };
@@ -758,7 +761,7 @@ function HeaderInner() {
                               <Link to="/login" onClick={ToggleMenu} className="font-bold hover:underline">Log in</Link> <span className="mx-2">|</span> <Link to="/register" onClick={ToggleMenu} className="hover:underline">Create account</Link>
                             </div>
                             <div className="text-[14px] flex items-center gap-1 cursor-pointer">
-                              English <ChevronDown size={16} />
+                              English <ChevronDown size={14} />
                             </div>
                           </div>
                         )}
@@ -791,21 +794,25 @@ function HeaderInner() {
                                   className={`flex justify-between items-center py-4 cursor-pointer bg-white transition-colors ${level === 0 ? 'px-4 hover:bg-[#fafafa]' : 'hover:opacity-70'}`}
                                   onClick={() => hasChildren ? handleItemClick(item) : ToggleMenu()}
                                 >
-                                  <div className="flex items-center gap-4">
+                                  <div className="flex items-center gap-4 flex-1 min-w-0 pr-2">
                                     {level === 0 && item.image && (
-                                      <img src={item.image} className="w-14 h-14 object-cover" alt="" />
+                                      <img src={item.image} className="w-14 h-14 object-cover shrink-0" alt="" />
                                     )}
-                                    {item.link && !hasChildren ? (
-                                      <Link to={item.link} className={`${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
-                                        {item.title || item.name}
-                                      </Link>
-                                    ) : (
-                                      <span className={`${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
-                                        {item.title || item.name}
-                                      </span>
-                                    )}
+                                    <div className="flex-1 min-w-0">
+                                      {item.link && !hasChildren ? (
+                                        <Link to={item.link} className={`block break-words leading-tight ${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
+                                          {item.title || item.name}
+                                          {item.sparkles && <span className="ml-1 text-[#82293b] text-[16px] inline-flex whitespace-nowrap">✦ ✦</span>}
+                                        </Link>
+                                      ) : (
+                                        <span className={`block break-words leading-tight ${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
+                                          {item.title || item.name}
+                                          {item.sparkles && <span className="ml-1 text-[#82293b] text-[16px] inline-flex whitespace-nowrap">✦ ✦</span>}
+                                        </span>
+                                      )}
+                                    </div>
                                   </div>
-                                  {hasChildren && <ChevronRight size={18} className="text-[#340c0c]" strokeWidth={1.5} />}
+                                  {hasChildren && <ChevronRight size={18} className="text-[#340c0c] shrink-0" strokeWidth={1.5} />}
                                 </div>
                               </div>
                             );
