@@ -32,56 +32,87 @@ function Fave() {
                         <p className="text-[#340c0c] font-helveticaN max-w-[500px] mb-[16px]">
                             Keep a list of all the gorgeous Charlotte Tilbury beauty products you love, or are dying to try next! You can log in on any device to see your saved wishlist.
                         </p>
-                        <section className="grid grid-cols-2 md:grid-cols-3   lg:grid-cols-4 gap-x-4 gap-y-10">
+                        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
                             {wishlist.map((item, idx) => {
-                                const shadeImage = item.selectedShade?.gallery?.[0] || item.selectedShade?.galleryImages?.[0] || item.selectedShade?.swatchImage;
-                                const displayImage = shadeImage || item.cardImages?.main || item.images?.main || item.image;
+                                const isImage = (url) => typeof url === 'string' && !url.match(/\.(mp4|webm|ogg|mov|avi)(\?|$)/i) && !url.startsWith('data:image/');
+                                
+                                const shadeGallery = item.selectedShade?.gallery || [];
+                                const shadeGalleryImages = item.selectedShade?.galleryImages || [];
+                                
+                                const shadeImage = shadeGallery.find(isImage) || shadeGalleryImages.find(isImage) || (isImage(item.selectedShade?.swatchImage) && item.selectedShade?.swatchImage);
+                                const displayImage = shadeImage || 
+                                    (isImage(item.cardImages?.main) && item.cardImages?.main) || 
+                                    (isImage(item.images?.main) && item.images?.main) || 
+                                    (isImage(item.image) && item.image) ||
+                                    item.images?.main || item.cardImages?.main || item.image || shadeGallery[0]; // Absolute fallback
+
                                 const shadeName = item.selectedShade?.name || item.shade || item.subtitle || item.subTitle || "Standard Size";
+                                
+                                const shadeHoverImage = shadeGallery.filter(isImage)[1] || shadeGalleryImages.filter(isImage)[1];
+                                const hoverImage = shadeHoverImage || 
+                                    (isImage(item.cardImages?.hover) && item.cardImages?.hover) || 
+                                    (isImage(item.images?.hover) && item.images?.hover) || 
+                                    displayImage;
 
                                 return (
-                                    <article key={`${item.title}-${shadeName}-${idx}`} className="flex flex-col w-[236px] m-[1rem_1rem_1rem_0] relative group">
-                                        <div className="relative bg-[#f9f8f6] aspect-[5/5] flex justify-center items-center mb-4 overflow-hidden">
+                                    <article key={`${item.title}-${shadeName}-${idx}`} className="flex flex-col w-full text-left h-full">
+                                        {/* Image Container */}
+                                        <div className="relative bg-[#f9f8f6] aspect-square flex justify-center items-center mb-3">
                                             <button
                                                 onClick={() => removeFromWishlist(item)}
-                                                className="absolute top-3 left-3 text-[#340c0c]   transition-transform z-10 p-1"
+                                                className="absolute top-2 left-2 text-[#340c0c] z-10 p-1"
                                                 aria-label="Remove from wishlist"
                                             >
-                                                <X size={20} strokeWidth={1} />
+                                                <X size={32} strokeWidth={1} />
                                             </button>
-                                            <Link to="/product" state={{ product: item }} className="absolute inset-0 w-full h-full flex justify-center items-center">
-                                                {/* Main Image */}
+
+                                            <Link to="/product" state={{ product: item }} className="absolute inset-0 w-full h-full flex justify-center items-center p-6 group/img">
                                                 <img
                                                     src={displayImage}
                                                     alt={item.title}
-                                                    className="absolute inset-0 w-full h-full object-cover mix-blend-multiply "
+                                                    className={`absolute inset-0 w-full h-full object-contain mix-blend-multiply transition-opacity duration-300 ${hoverImage !== displayImage ? 'group-hover/img:opacity-0' : ''}`}
                                                     loading="lazy"
                                                 />
+                                                {hoverImage !== displayImage && (
+                                                    <img
+                                                        src={hoverImage}
+                                                        alt={item.title}
+                                                        className="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-0 group-hover/img:opacity-100 transition-opacity duration-300"
+                                                        loading="lazy"
+                                                    />
+                                                )}
                                             </Link>
+
+                                            {/* Promo Badge */}
+                                            {(item.badge || item.title?.toLowerCase().includes('magic')) && (
+                                                <div className="absolute bottom-2 left-2 bg-[#fbe1e1] text-[#340c0c] font-bold uppercase text-[10px] px-2 py-1 z-10">
+                                                    {item.badge || "SUPERCHARGED FORMULA!"}
+                                                </div>
+                                            )}
                                         </div>
-                                        <div className="flex flex-col flex-grow">
-                                            <Link to="/product" state={{ product: item }} className="group-hover:text-[#856d6d] transition-colors">
-                                                <h3 className="font-optima uppercase text-[14px] font-bold text-[#340c0c] tracking-wide line-clamp-1 group-hover:underline">
+
+                                        {/* Typography & Details */}
+                                        <div className="flex flex-col gap-1 mb-4 flex-grow">
+                                            <Link to="/product" state={{ product: item }} className="flex flex-col gap-1">
+                                                <h3 className="font-optima uppercase text-[14px] font-semibold text-[#340c0c] leading-tight line-clamp-2">
                                                     {item.title}
                                                 </h3>
-                                                {item.category && (
-                                                    <p className="text-[#a06464] uppercase text-[10px] font-bold tracking-widest mt-1 mb-0.5 line-clamp-1">
-                                                        {item.category}
-                                                    </p>
-                                                )}
-                                                <p className="text-[#856d6d] uppercase text-[11px] tracking-wider mb-2 mt-0.5 line-clamp-1">
+                                                <p className="text-gray-500 text-[13px] font-light leading-tight line-clamp-1">
                                                     {shadeName}
                                                 </p>
+                                                <p className="text-[#340c0c] text-[14px] mt-1 leading-tight">
+                                                    {item.selectedShade?.price || item.price}
+                                                </p>
                                             </Link>
-                                            <div className="mt-auto pt-2">
-                                                <p className="text-[#340c0c] font-medium text-[15px] mb-4">{item.selectedShade?.price || item.price}</p>
-                                                <button
-                                                    onClick={() => handleAddtoBasket(item)}
-                                                    className="w-full border border-[#340c0c] text-[#340c0c] py-2.5 hover:bg-[#340c0c] hover:text-white transition-colors duration-300 font-helveticaN uppercase tracking-wider text-[12px]"
-                                                >
-                                                    ADD TO BAG
-                                                </button>
-                                            </div>
                                         </div>
+
+                                        {/* Call-to-Action Button */}
+                                        <button
+                                            onClick={() => handleAddtoBasket(item)}
+                                            className="mt-auto w-full border border-[#340c0c] bg-transparent text-[#340c0c] py-2.5 hover:bg-[#340c0c] hover:text-white transition-colors duration-300 font-helveticaN uppercase tracking-wider text-[12px]"
+                                        >
+                                            ADD TO BAG
+                                        </button>
                                     </article>
                                 )
                             })}

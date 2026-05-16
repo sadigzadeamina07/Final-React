@@ -392,44 +392,44 @@ const renderMegaMenuContent = (title) => {
   const itemData = menuData.find(d => d.title === title);
   if (!itemData || (!itemData.subMenu && !itemData.products)) return null;
   return (
-      <div className="container max-w-[1470px] mx-auto py-12 px-4 md:px-8 text-left">
-        <div className="flex justify-between items-start">
+    <div className="w-[58.9375rem] mx-auto py-[1.5rem] px-[1rem] text-left">
+      <div className="flex justify-between items-start">
 
-          {/* Left Side: Categories/Links */}
-          <div className={`flex gap-16 shrink-0 ${itemData.products ? 'w-[30%]' : 'w-full'}`}>
-            {itemData.subMenu && itemData.subMenu.map((col, colIndex) => (
-              <div key={colIndex} className="flex flex-col">
-                <h4 className="font-helveticaN font-bold text-[13px] mb-6 text-[#340c0c] uppercase tracking-wider">{col.title}</h4>
-                <ul className="flex flex-col gap-4 font-sans text-[14px] text-[#555]">
-                  {col.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <Link to={link.url} className="hover:underline underline-offset-4 decoration-[#340c0c] transition-all inline-block">{link.name}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Right Side: Products Grid */}
-          {itemData.products && (
-            <div className="flex-grow border-l border-[#eae6e6] pl-10">
-              <div className="grid grid-cols-4 gap-6">
-                {itemData.products.map((prod, pIdx) => (
-                  <Link to={prod.url || '/home'} key={pIdx} className="flex flex-col text-center group/product">
-                    <div className="w-full aspect-square mb-4 overflow-hidden bg-transparent relative flex items-center justify-center">
-                      {prod.badge && <span className="absolute top-0 left-0 bg-[#340c0c] text-white text-[10px] font-bold px-2 py-1 uppercase tracking-widest z-10">{prod.badge}</span>}
-                      <img src={prod.image} alt={prod.name} title={`${prod.name} - ${prod.subtitle} Packshot Open`} className="w-[85%] h-[85%] object-contain group-hover/product:opacity-70 transition-opacity duration-300 ease-out" />
-                    </div>
-                    <h4 className="font-sans text-[12px] font-bold text-[#340c0c] uppercase leading-snug group-hover/product:underline underline-offset-2 decoration-[#340c0c] line-clamp-2 px-2">{prod.name}</h4>
-                    <p className="font-sans text-[11px] text-[#856d6d] uppercase mt-1.5 tracking-wider">{prod.subtitle}</p>
-                  </Link>
+        {/* Left Side: Categories/Links */}
+        <div className={`flex gap-16 shrink-0 ${itemData.products ? 'w-[30%]' : 'w-full'}`}>
+          {itemData.subMenu && itemData.subMenu.map((col, colIndex) => (
+            <div key={colIndex} className="flex flex-col">
+              <h4 className="font-helveticaN font-bold text-[13px] mb-6 text-[#340c0c] uppercase tracking-wider">{col.title}</h4>
+              <ul className="flex flex-col gap-4 font-sans text-[14px] text-[#555]">
+                {col.links.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <Link to={link.url} className="hover:underline underline-offset-4 decoration-[#340c0c] transition-all inline-block">{link.name}</Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
-          )}
+          ))}
         </div>
+
+        {/* Right Side: Products Grid */}
+        {itemData.products && (
+          <div className="flex-grow border-l border-[#eae6e6] pl-10">
+            <div className="grid grid-cols-4 gap-6">
+              {itemData.products.map((prod, pIdx) => (
+                <Link to={prod.url || '/home'} key={pIdx} className="flex flex-col text-center group/product">
+                  <div className="w-full aspect-square mb-4 overflow-hidden bg-transparent relative flex items-center justify-center">
+                    {prod.badge && <span className="absolute top-0 left-0 bg-[#340c0c] text-white text-[10px] font-bold px-2 py-1 uppercase tracking-widest z-10">{prod.badge}</span>}
+                    <img src={prod.image} alt={prod.name} title={`${prod.name} - ${prod.subtitle} Packshot Open`} className="w-[85%] h-[85%] object-contain group-hover/product:opacity-70 transition-opacity duration-300 ease-out" />
+                  </div>
+                  <h4 className="font-sans text-[12px] font-bold text-[#340c0c] uppercase leading-snug group-hover/product:underline underline-offset-2 decoration-[#340c0c] line-clamp-2 px-2">{prod.name}</h4>
+                  <p className="font-sans text-[11px] text-[#856d6d] uppercase mt-1.5 tracking-wider">{prod.subtitle}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+    </div>
   );
 };
 
@@ -462,7 +462,7 @@ function HeaderInner() {
   const [isOpen, setIsOpen] = useState(false);
   const hoverTimeoutRef = React.useRef(null);
   const normalHeaderRef = React.useRef(null);
-  
+
   const [isCartDropdownOpen, setIsCartDropdownOpen] = useState(false);
   const cartHoverTimeoutRef = React.useRef(null);
 
@@ -501,7 +501,7 @@ function HeaderInner() {
         setMenuTop(normalHeaderRef.current.getBoundingClientRect().bottom);
       }
     };
-    
+
     updateMenuTop();
     window.addEventListener('scroll', updateMenuTop);
     window.addEventListener('resize', updateMenuTop);
@@ -711,7 +711,7 @@ function HeaderInner() {
               <button onClick={handleSearchClick} aria-label="Open search" className="hover:opacity-70 transition-opacity cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <PiMagnifyingGlass size={25} />
               </button>
-              <div 
+              <div
                 className='relative font-helveticaN flex items-center gap-2 cursor-pointer'
                 onMouseEnter={handleCartEnter}
                 onMouseLeave={handleCartLeave}
@@ -895,7 +895,7 @@ function HeaderInner() {
             <ul className='font-helveticaN flex flex-wrap  font-black justify-center  gap-4  lg:gap-7 uppercase'>
               <li className='text-[#a06464] border-b border-transparent pb-2 hover:border-b-[#a06464]' ><Link to='/home' >Up to a magical 20% off</Link></li>
               {["NEW IN", "MAKEUP", "SKINCARE", "BEST SELLERS", "GIFTS", "FRAGRANCE", "SHADE MATCH TOOLS", "SERVICES"].map(cat => (
-                <li 
+                <li
                   key={cat}
                   className={`border-b pb-2 cursor-pointer transition-colors ${activeCategory === cat ? 'border-[#340c0c]' : 'border-transparent hover:border-[#340c0c]'}`}
                   onMouseEnter={() => handleMenuEnter(cat)}
@@ -926,10 +926,14 @@ function HeaderInner() {
 
       </div>
       {/* STICKY SLIDE-DOWN HEADER */}
-      <div className={`fixed top-0 left-0 w-full bg-white/95 backdrop-blur-2xl z-[110] shadow-[0_2px_20px_rgba(52,12,12,0.08)] transition-transform duration-500 ease-in-out ${isScrolled && !isCartOpen && location.pathname !== '/search' ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`fixed top-0 left-0 w-full bg-white z-[110] shadow-[0_2px_20px_rgba(52,12,12,0.08)] transition-transform duration-500 ease-in-out ${isScrolled && !isCartOpen && location.pathname !== '/search' ? 'translate-y-0' : '-translate-y-full'}`}>
+        {/* Top Promotional Tier */}
+        <div className="bg-[#340c0c] h-[1rem] flex items-center justify-center">
+          <span className="text-white text-[10px] uppercase tracking-widest">{message[index]}</span>
+        </div>
         {/* Desktop Sticky View */}
         <div className="hidden md:block h-[60px]">
-          <div className="container max-w-[1470px] mx-auto h-full px-4 md:px-8">
+          <div className="container max-w-[100rem] mx-auto h-full px-4 md:px-8">
             <div className="grid grid-cols-[1fr_auto_1fr] h-full items-center relative">
 
               {/* Left Links */}
@@ -969,7 +973,7 @@ function HeaderInner() {
 
                 {/* Utilities - ONLY Cart in sticky view */}
                 <div className="flex items-center ml-auto pl-4">
-                  <div 
+                  <div
                     className="relative font-helveticaN flex items-center cursor-pointer"
                     onMouseEnter={handleCartEnter}
                     onMouseLeave={handleCartLeave}
@@ -990,8 +994,8 @@ function HeaderInner() {
       </div>
 
       {/* Global Persistent Mega Menu Container */}
-      <div 
-        className={`fixed left-0 w-full bg-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] border-t border-[#eae6e6] transition-all duration-400 ease-out z-[105] ${isOpen ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
+      <div
+        className={`fixed left-0 w-full bg-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] border-t border-[#eae6e6] transition-all duration-300 ease-in-out origin-top z-[105] ${isOpen ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
         style={{ top: menuTop + 'px' }}
         onMouseEnter={() => {
           if (activeCategory) handleMenuEnter(activeCategory);
@@ -1002,18 +1006,18 @@ function HeaderInner() {
       </div>
 
       {/* Global Persistent Cart Dropdown Container */}
-      <div 
+      <div
         className={`fixed left-0 w-full transition-all duration-400 ease-out z-[105] pointer-events-none ${isCartDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'}`}
         style={{ top: menuTop + 'px' }}
       >
         <div className="container max-w-[1470px] mx-auto relative h-full px-4 md:px-8">
-           <div 
-             className="absolute right-4 md:right-8 top-0 pt-4 pointer-events-auto"
-             onMouseEnter={handleCartEnter}
-             onMouseLeave={handleCartLeave}
-           >
-             {renderCartDropdownContent()}
-           </div>
+          <div
+            className="absolute right-4 md:right-8 top-0 pt-4 pointer-events-auto"
+            onMouseEnter={handleCartEnter}
+            onMouseLeave={handleCartLeave}
+          >
+            {renderCartDropdownContent()}
+          </div>
         </div>
       </div>
 

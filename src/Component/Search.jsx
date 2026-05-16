@@ -16,6 +16,17 @@ export default function SearchComponent({ onClose }) {
 
   const carouselRef = useRef(null);
 
+  const uniqueTrending = useMemo(() => {
+    const seen = new Set();
+    return trending.filter(p => {
+      const sub = p.subtitle || p.subTitle || '';
+      const id = `${p.title?.trim().toLowerCase()}-${sub.trim().toLowerCase()}`; 
+      if (!p.title || seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    });
+  }, [trending]);
+
   // Debouncing for search input
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -30,7 +41,7 @@ export default function SearchComponent({ onClose }) {
 
   useEffect(() => {
     if (debouncedQuery.length > 0) {
-      const dynamic = trending
+      const dynamic = uniqueTrending
         .filter(p => p.title?.toLowerCase().includes(debouncedQuery.toLowerCase()))
         .map(p => p.title)
         .slice(0, 4);
@@ -38,12 +49,12 @@ export default function SearchComponent({ onClose }) {
     } else {
       setSuggestions(defaultSuggestions);
     }
-  }, [debouncedQuery, trending]);
+  }, [debouncedQuery, uniqueTrending]);
 
   // Case-insensitive filtering + sorting
   const filteredProducts = useMemo(() => {
     if (!debouncedQuery) return [];
-    let results = trending.filter(product => 
+    let results = uniqueTrending.filter(product => 
       product.title?.toLowerCase().includes(debouncedQuery.toLowerCase()) || 
       (product.subtitle && product.subtitle.toLowerCase().includes(debouncedQuery.toLowerCase()))
     );
@@ -61,7 +72,7 @@ export default function SearchComponent({ onClose }) {
     }
 
     return results;
-  }, [debouncedQuery, trending, sortBy]);
+  }, [debouncedQuery, uniqueTrending, sortBy]);
 
   const hasQuery = debouncedQuery.length > 0;
   const hasResults = filteredProducts.length > 0;
@@ -108,10 +119,9 @@ export default function SearchComponent({ onClose }) {
             {query.length > 0 && (
               <button 
                 onClick={() => setQuery('')} 
-                className="ml-3 text-[#340c0c] hover:text-black transition-colors"
-                title="Clear"
+                className="ml-3 text-[#340c0c] font-sans text-[14px] hover:text-black transition-colors"
               >
-                <X size={20} strokeWidth={1.5} />
+                Clear
               </button>
             )}
 
@@ -175,9 +185,8 @@ export default function SearchComponent({ onClose }) {
             <div className="animate-in fade-in duration-500 pb-10">
               {hasQuery && !hasResults && (
                 <div className="text-center px-4 mb-10 mt-8 border-b border-[#eae6e6] pb-10">
-                  <h3 className="font-serif text-[24px] md:text-[28px] text-[#340c0c] mb-2">0 results for "{debouncedQuery}"</h3>
-                  <p className="font-sans text-[15px] md:text-[16px] text-[#856d6d] tracking-wide leading-relaxed mx-auto max-w-2xl">
-                    Sorry Darling! We couldn't find any matches. Try another search or shop our best sellers below:
+                  <p className="font-sans text-[15px] md:text-[16px] text-[#340c0c] tracking-wide mx-auto max-w-2xl">
+                    Sorry Darling! There are no results for "{debouncedQuery}". Try another search or shop best sellers below:
                   </p>
                 </div>
               )}
@@ -190,7 +199,7 @@ export default function SearchComponent({ onClose }) {
                     ref={carouselRef}
                     className="flex overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory gap-4 pb-4 md:grid md:grid-cols-4 md:gap-x-4 md:gap-y-12 md:overflow-visible md:snap-none"
                   >
-                    {trending.slice(0, 8).map((product, idx) => (
+                    {uniqueTrending.slice(0, 8).map((product, idx) => (
                       <div key={idx} className="w-[45%] md:w-auto shrink-0 snap-start">
                         <ProductCard 
                           product={product} 
