@@ -1,50 +1,77 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+} from 'react';
+
+const NavContext = createContext();
 
 const initialState = {
-  history: ["MAIN"],
-  isOpen: false, // Overall drawer state
+  isOpen: false,
+  history: ['MAIN'],
 };
 
-function navReducer(state, action) {
+function reducer(state, action) {
   switch (action.type) {
-    case "SET_MENU_STATE":
-      return { ...state, isOpen: action.payload, history: ["MAIN"] };
-    case "NAVIGATE_TO":
-      if (state.history[state.history.length - 1] === action.payload) return state;
+    case 'OPEN_MENU':
+      return {
+        ...state,
+        isOpen: true,
+      };
+
+    case 'CLOSE_MENU':
+      return {
+        isOpen: false,
+        history: ['MAIN'],
+      };
+
+    case 'GO_TO':
       return {
         ...state,
         history: [...state.history, action.payload],
       };
-    case "NAVIGATE_BACK":
-      if (state.history.length <= 1) return state;
+
+    case 'GO_BACK':
       return {
         ...state,
         history: state.history.slice(0, -1),
       };
+
     default:
       return state;
   }
 }
 
-const NavContext = createContext();
-
 export function NavProvider({ children }) {
-  const [state, dispatch] = useReducer(navReducer, initialState);
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
-  const handleMenuState = (isOpen) => dispatch({ type: "SET_MENU_STATE", payload: isOpen });
-  const navigateTo = (viewId) => dispatch({ type: "NAVIGATE_TO", payload: viewId });
-  const navigateBack = () => dispatch({ type: "NAVIGATE_BACK" });
-
-  const activeView = state.history[state.history.length - 1];
+  const activeMenu =
+    state.history[state.history.length - 1];
 
   return (
     <NavContext.Provider
       value={{
-        state,
-        activeView,
-        handleMenuState,
-        navigateTo,
-        navigateBack,
+        isOpen: state.isOpen,
+        history: state.history,
+        activeMenu,
+
+        openMenu: () =>
+          dispatch({ type: 'OPEN_MENU' }),
+
+        closeMenu: () =>
+          dispatch({ type: 'CLOSE_MENU' }),
+
+        goTo: (menu) =>
+          dispatch({
+            type: 'GO_TO',
+            payload: menu,
+          }),
+
+        goBack: () =>
+          dispatch({ type: 'GO_BACK' }),
       }}
     >
       {children}
@@ -53,9 +80,5 @@ export function NavProvider({ children }) {
 }
 
 export function useNav() {
-  const context = useContext(NavContext);
-  if (!context) {
-    throw new Error("useNav must be used within a NavProvider");
-  }
-  return context;
+  return useContext(NavContext);
 }

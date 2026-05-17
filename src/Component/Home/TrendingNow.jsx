@@ -14,6 +14,36 @@ function TrendingNow() {
     const { toggleWishlist, isInWishlist } = useWishlist();
 
     const scrollRef = useRef(null);
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
+
+    const checkScroll = () => {
+        if (scrollRef.current) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+            setCanScrollLeft(scrollLeft > 0);
+            setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 1);
+        }
+    };
+
+    useEffect(() => {
+        checkScroll();
+        const ref = scrollRef.current;
+        if (ref) {
+            ref.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+
+            const resizeObserver = new ResizeObserver(() => {
+                checkScroll();
+            });
+            resizeObserver.observe(ref);
+
+            return () => {
+                ref.removeEventListener('scroll', checkScroll);
+                window.removeEventListener('resize', checkScroll);
+                resizeObserver.disconnect();
+            };
+        }
+    }, [trending]);
 
     const scrollLeft = () => {
         if (scrollRef.current) scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
@@ -40,28 +70,47 @@ function TrendingNow() {
                         return (
                             <div key={index} className="w-[calc(50%-5px)] md:w-[calc(25%-7.5px)] xl:w-[calc(16.666%-16.66px)] shrink-0 snap-start h-auto flex">
                                 <div className="w-full group relative flex flex-col h-full border border-transparent">
-                                    <Link to='/product' state={{ product: item }} className="relative block">
-                                        <img src={item.images?.main || item.cardImages?.main} className='w-full h-fit bg-[#f5f5f5] object-cover aspect-square' alt={item.title} />
-                                        <img src={item.images?.hover || item.cardImages?.hover || item.images?.main} className='w-full h-fit absolute inset-0 duration-300 hover:opacity-100 opacity-0 bg-[#f5f5f5] object-cover aspect-square' alt={item.title} />
-                                    </Link>
+                                    {item.outOfStock ? (
+                                        <div className="relative block cursor-default">
+                                            <img src={item.images?.main || item.cardImages?.main} className='w-full h-fit bg-[#f5f5f5] object-cover aspect-square opacity-60' alt={item.title} />
+                                        </div>
+                                    ) : (
+                                        <Link to='/product' state={{ product: item }} className="relative block">
+                                            <img src={item.images?.main || item.cardImages?.main} className='w-full h-fit bg-[#f5f5f5] object-cover aspect-square' alt={item.title} />
+                                            <img src={item.images?.hover || item.cardImages?.hover || item.images?.main} className='w-full h-fit absolute inset-0 duration-300 hover:opacity-100 opacity-0 bg-[#f5f5f5] object-cover aspect-square' alt={item.title} />
+                                        </Link>
+                                    )}
                                     <div onClick={() => toggleWishlist(item)} className={`absolute ${isLiked ? 'border-[#3a080a]' : 'border-none'} right-3 bg-white p-2 rounded-full border top-3 cursor-pointer hover:scale-110 transition-transform`}>
                                         {isLiked ? <FaHeart size={22} color="#3a080a" /> : <FaRegHeart size={22} color="#3a080a" />}
                                     </div>
 
                                     <div className="flex flex-col flex-1 p-[10px] text-[1rem] font-helveticaN">
                                         <div className="px-[1rem] text-sm min-h-[3.5rem]">
-                                            <Link to='/product' state={{ product: item }}>
-                                                <h3 className='font-bold uppercase line-clamp-1'>{item.title}</h3>
-                                                <p className='line-clamp-2'>{item.subtitle || item.subTitle}</p>
-                                            </Link>
+                                            {item.outOfStock ? (
+                                                <div>
+                                                    <h3 className='font-bold uppercase line-clamp-1'>{item.title}</h3>
+                                                    <p className='line-clamp-2'>{item.subtitle || item.subTitle}</p>
+                                                </div>
+                                            ) : (
+                                                <Link to='/product' state={{ product: item }}>
+                                                    <h3 className='font-bold uppercase line-clamp-1'>{item.title}</h3>
+                                                    <p className='line-clamp-2'>{item.subtitle || item.subTitle}</p>
+                                                </Link>
+                                            )}
                                         </div>
                                         <div className="mt-auto pt-2">
                                             <p className="ml-[1rem] text-sm font-bold">{item.price}</p>
                                         </div>
                                     </div>
-                                    <button onClick={() => handleAddtoBasket(item)} className='border duration-200 w-full font-helveticaN uppercase py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a] mt-auto'>
-                                        Add to basket
-                                    </button>
+                                    {item.outOfStock ? (
+                                        <div className='border w-full font-helveticaN uppercase py-2 border-[#e5e5e5] bg-[#f5f5f5] text-[#999] text-center text-sm font-bold tracking-widest cursor-not-allowed mt-auto'>
+                                            Out of Stock
+                                        </div>
+                                    ) : (
+                                        <button onClick={() => handleAddtoBasket(item)} className='border duration-200 w-full font-helveticaN uppercase py-2 hover:bg-[#6e2132] hover:text-white border-[#3a080a] mt-auto'>
+                                            Add to basket
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         );
@@ -70,11 +119,11 @@ function TrendingNow() {
                 <CustomScrollbar scrollRef={scrollRef} />
             </div>
 
-            <button onClick={scrollLeft} className='hidden md:block absolute left-1 lg:left-auto lg:right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50 bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0'>
+            <button disabled={!canScrollLeft} onClick={scrollLeft} className='hidden md:block absolute left-1 lg:left-auto lg:right-14 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0 transition-opacity'>
                 <ChevronLeft size={24} className="lg:hidden" />
                 <ChevronLeft size={36} className="hidden lg:block" />
             </button>
-            <button onClick={scrollRight} className='hidden md:block absolute right-1 lg:right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-50 bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0'>
+            <button disabled={!canScrollRight} onClick={scrollRight} className='hidden md:block absolute right-1 lg:right-2 top-[7.5%] -translate-y-1/2 shadow-2xl z-10 disabled:opacity-30 disabled:cursor-not-allowed bg-white/80 lg:bg-transparent rounded-full p-1 lg:p-0 transition-opacity'>
                 <ChevronRight size={24} className="lg:hidden" />
                 <ChevronRight size={36} className="hidden lg:block" />
             </button>

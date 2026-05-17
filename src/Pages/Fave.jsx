@@ -11,18 +11,22 @@ function Fave() {
     return (
         <main className="bg-white  font-helveticaN py-12 px-4 md:px-5">
             <div className="container max-w-[1024px] mx-auto px-[16px]">
-                    <h1 className="font-helveticaN text-[28px] text-[#340c0c] uppercase  mb-[8px]">
-                        WISHLIST
-                    </h1>
+                {wishlist.length > 0 && (
+                    <h1 className="font-helveticaN text-[28px] text-[#340c0c] uppercase mb-[8px]">WISHLIST</h1>
+                )}
 
                 {wishlist.length === 0 ? (
                     <section className="flex flex-col items-center justify-center py-16 text-center">
-                        <p className="text-[#340c0c]  font-helveticaN max-w-[500px] mb-[16px] leading-relaxed">
-                           Keep a list of all the gorgeous Charlotte Tilbury beauty products you love, or are dying to try next! You can log in on any device to see your saved wishlist.
+                    
+                        <h1 className="font-helveticaN text-[24px] md:text-[28px] text-[#340c0c] uppercase mb-[8px] text-center">
+                            YOUR WISHLIST IS EMPTY
+                        </h1>
+                        <p className="text-[#340c0c] font-helveticaN max-w-[500px] mb-[24px] leading-relaxed text-center font-light text-[15px]">
+                            Adding items to your wishlist by clicking the heart icon as you shop.
                         </p>
                         <Link
-                            to="/"
-                            className="border border-[#340c0c] text-[#340c0c] px-12 py-3.5 hover:bg-[#340c0c] hover:text-white transition-colors duration-300 font-helveticaN uppercase tracking-widest text-[13px] font-bold"
+                            to="/home"
+                            className="border border-[#340c0c] text-[#340c0c] px-16 py-3 hover:bg-[#340c0c] hover:text-white transition-colors duration-300 font-helveticaN uppercase tracking-widest text-[13px] font-bold text-center inline-block"
                         >
                             BEST SELLERS
                         </Link>

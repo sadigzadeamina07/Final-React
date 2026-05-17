@@ -490,7 +490,7 @@ function HeaderInner() {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsOpen(false);
       // We do NOT set activeCategory(null) here so the content doesn't abruptly disappear while fading out
-    }, 250); // Increased debounce to 250ms to prevent flickering when mouse crosses gaps
+    }, 50); // Reduced from 250ms to 50ms so it closes instantly, relying on the invisible bridge CSS for gap crossing
   };
 
   useEffect(() => {
@@ -637,7 +637,7 @@ function HeaderInner() {
   );
 
   return (
-    <header className={`text-[#340c0c] ${location.pathname === '/search' ? 'sticky top-0 z-[120] bg-white w-full' : 'relative'}`} >
+    <header className={`text-[#340c0c] ${location.pathname === '/search' ? 'md:sticky relative top-0 z-[120] bg-white w-full' : 'relative'}`} >
       <div className="bg-[#fde8e0] p-2">
         <div className="container max-w-[1470px] mx-auto">
           <div className="flex items-center justify-center text-center h-12 md:h-fit text-xs md:text-sm ">
@@ -647,7 +647,7 @@ function HeaderInner() {
 
 
       </div>
-      <div ref={normalHeaderRef} className={`relative bg-white/90 backdrop-blur-xl px-4 z-[100] transition-all duration-500 ${isScrolled && location.pathname !== '/search' ? 'shadow-[0_2px_20px_rgba(52,12,12,0.06)]' : ''}`}>
+      <div ref={normalHeaderRef} className={`relative bg-white/90 backdrop-blur-xl px-4 z-[110] transition-all duration-500 ${isScrolled ? 'shadow-[0_2px_20px_rgba(52,12,12,0.06)]' : ''}`}>
         <div className="container max-w-[1470px]  py-1 md:pt-4 md:pb-2 mx-auto">
           <div className="hidden md:flex h-[10vh] justify-between items-center ">
             <div className="text-[12px] gap-4 z-[160]">
@@ -745,30 +745,42 @@ function HeaderInner() {
                     style={{ transform: `translateX(-${(menuStack.length - 1) * 100}%)`, width: '100%' }}
                   >
                     {menuStack.map((screen, level) => (
-                      <div key={level} className="w-full h-full shrink-0 overflow-y-auto overflow-x-hidden pb-8 bg-white flex flex-col custom-scrollbar">
+                      <div key={level} className="w-full h-full shrink-0 bg-white flex flex-col">
 
                         {/* Header for ROOT level */}
                         {level === 0 && (
-                          <div className="flex justify-end items-center px-4 py-4 bg-white z-10 shrink-0">
+                          <div className="sticky top-0 flex justify-end items-center px-4 py-4 bg-white z-20 shrink-0">
                             <X onClick={ToggleMenu} className='cursor-pointer text-[#340c0c]' size={28} strokeWidth={1} />
                           </div>
                         )}
 
                         {/* Top Bar (Login / English) - Root Only */}
                         {level === 0 && (
-                          <div className="bg-[#6e1e2d] px-6 py-4 flex justify-between items-center text-white shrink-0">
-                            <div className="text-[14px] font-sans">
-                              <Link to="/login" onClick={ToggleMenu} className="font-bold hover:underline">Log in</Link> <span className="mx-2">|</span> <Link to="/register" onClick={ToggleMenu} className="hover:underline">Create account</Link>
+                          <div className="bg-[#6e1e2d] px-4 py-3 flex justify-between items-center text-white shrink-0">
+                            <div className="text-[12px] font-sans">
+                              <Link to="/login" onClick={ToggleMenu} className="font-bold hover:underline">Log in</Link> <span className="mx-1">|</span> <Link to="/register" onClick={ToggleMenu} className="hover:underline">Create account</Link>
                             </div>
-                            <div className="text-[14px] flex items-center gap-1 cursor-pointer">
+                            <div className="text-[12px] flex items-center gap-1 cursor-pointer">
                               English <ChevronDown size={14} />
                             </div>
                           </div>
                         )}
 
+                        {/* Promo Banner Slot (Block B) */}
+                        {level === 0 && (
+                          <div className="border-b border-[#eae6e6] bg-[#fdfaf9]">
+                            <Link to="/product" onClick={ToggleMenu} className="flex items-center gap-4 px-4 py-3 hover:opacity-70 transition-opacity">
+                              <img src="/assets/img/MenuImages/image_53.png" className="w-12 h-12 object-cover shrink-0" alt="Promo" />
+                              <span className="uppercase font-helveticaN text-[13px] text-[#340c0c] tracking-wide font-bold">
+                                IT'S BACK! AIRBRUSH FLAWLESS BLUR CONCEALER <span className="text-[#82293b] text-[15px]">✦</span>
+                              </span>
+                            </Link>
+                          </div>
+                        )}
+
                         {/* Header for nested menus */}
                         {level > 0 && (
-                          <div className="flex items-center justify-between px-4 py-4 border-b border-[#eae6e6] bg-white z-10 shrink-0">
+                          <div className="sticky top-0 flex items-center justify-between px-4 py-4 border-b border-[#eae6e6] bg-white z-20 shrink-0">
                             <div className="flex items-center gap-2 cursor-pointer" onClick={goBack}>
                               <ChevronLeft size={20} className="text-[#340c0c]" strokeWidth={1.5} />
                               <span className="font-sans font-medium text-[16px] text-[#340c0c]">{screen.title}</span>
@@ -779,95 +791,97 @@ function HeaderInner() {
 
                         {/* Banner for specific categories */}
                         {screen.imageBanner && level > 0 && (
-                          <div className="px-6 py-4">
+                          <div className="px-6 py-4 shrink-0">
                             <img src={screen.imageBanner} alt={screen.title} className="w-full h-auto object-cover rounded-sm shadow-sm" />
                           </div>
                         )}
 
-                        {/* Menu Items */}
-                        <div className="flex-1">
-                          {screen.items && screen.items.map((item, idx) => {
-                            const hasChildren = item.children && item.children.length > 0;
-                            return (
-                              <div key={idx} className={`${level > 0 ? 'border-b border-[#eae6e6] mx-4' : 'border-b border-[#eae6e6]'}`}>
-                                <div
-                                  className={`flex justify-between items-center py-4 cursor-pointer bg-white transition-colors ${level === 0 ? 'px-4 hover:bg-[#fafafa]' : 'hover:opacity-70'}`}
-                                  onClick={() => hasChildren ? handleItemClick(item) : ToggleMenu()}
-                                >
-                                  <div className="flex items-center gap-4 flex-1 min-w-0 pr-2">
-                                    {level === 0 && item.image && (
-                                      <img src={item.image} className="w-14 h-14 object-cover shrink-0" alt="" />
-                                    )}
-                                    <div className="flex-1 min-w-0">
-                                      {item.link && !hasChildren ? (
-                                        <Link to={item.link} className={`block break-words leading-tight ${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
-                                          {item.title || item.name}
-                                          {item.sparkles && <span className="ml-1 text-[#82293b] text-[16px] inline-flex whitespace-nowrap">✦ ✦</span>}
-                                        </Link>
-                                      ) : (
-                                        <span className={`block break-words leading-tight ${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
-                                          {item.title || item.name}
-                                          {item.sparkles && <span className="ml-1 text-[#82293b] text-[16px] inline-flex whitespace-nowrap">✦ ✦</span>}
-                                        </span>
+                        {/* Scrollable Content Area */}
+                        <div className="flex-1 overflow-y-auto overflow-x-hidden pb-8 custom-scrollbar">
+                          {/* Menu Items */}
+                          <div className="flex-1">
+                            {screen.items && screen.items.map((item, idx) => {
+                              const hasChildren = item.children && item.children.length > 0;
+                              return (
+                                <div key={idx} className={`${level > 0 ? 'border-b border-[#eae6e6] mx-4' : 'border-b border-[#eae6e6]'}`}>
+                                  <div
+                                    className={`flex justify-between items-center py-4 cursor-pointer bg-white transition-colors ${level === 0 ? 'px-4 hover:bg-[#fafafa]' : 'hover:opacity-70'}`}
+                                    onClick={() => hasChildren ? handleItemClick(item) : ToggleMenu()}
+                                  >
+                                    <div className="flex items-center gap-4 flex-1 min-w-0 pr-2">
+                                      {level === 0 && item.image && (
+                                        <img src={item.image} className="w-14 h-14 object-cover shrink-0" alt="" />
                                       )}
+                                      <div className="flex-1 min-w-0">
+                                        {item.link && !hasChildren ? (
+                                          <Link to={item.link} className={`block break-words leading-tight ${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
+                                            {item.title || item.name}
+                                            {item.sparkles && <span className="ml-1 text-[#82293b] text-[16px] inline-flex whitespace-nowrap">✦ ✦</span>}
+                                          </Link>
+                                        ) : (
+                                          <span className={`block break-words leading-tight ${level === 0 ? 'uppercase font-helveticaN text-[14px]' : 'font-sans text-[14px]'} tracking-wide ${item.highlight ? (level === 0 ? 'text-[#6e1e2d] font-bold' : 'text-[#6e1e2d] underline') : 'text-[#340c0c]'} ${level > 0 && !item.highlight ? 'text-[#555]' : ''}`}>
+                                            {item.title || item.name}
+                                            {item.sparkles && <span className="ml-1 text-[#82293b] text-[16px] inline-flex whitespace-nowrap">✦ ✦</span>}
+                                          </span>
+                                        )}
+                                      </div>
                                     </div>
+                                    {hasChildren && <ChevronRight size={18} className="text-[#340c0c] shrink-0" strokeWidth={1.5} />}
                                   </div>
-                                  {hasChildren && <ChevronRight size={18} className="text-[#340c0c] shrink-0" strokeWidth={1.5} />}
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {/* Extra bottom items (only on root level) */}
+                          {level === 0 && (
+                            <>
+                              {/* PERFECT MATCHES */}
+                              <div className="bg-[#fcf5f5] px-4 py-5">
+                                <p className="uppercase font-helveticaN text-center font-bold text-[13px] text-[#340c0c] leading-tight mb-4 tracking-wide">
+                                  DARLING, UNLOCK YOUR PERFECT MAKEUP MATCHES WITH ME!
+                                </p>
+                                <button className="w-full bg-[#340c0c] text-white py-3 uppercase text-[12px] font-bold tracking-widest hover:bg-[#1a080a] transition-colors border border-[#340c0c]">
+                                  FIND YOUR PERFECT MATCHES
+                                </button>
+                              </div>
+
+                              {/* SHIPPING */}
+                              <div className="px-4 py-6 border-t border-[#eae6e6] mt-4">
+                                <p className="uppercase font-helveticaN font-bold text-[13px] text-[#340c0c] mb-4">SHIPPING TO:</p>
+                                <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleItemClick({ title: 'REGION & CURRENCY', isShipping: true })}>
+                                  <Globe size={22} className="text-[#340c0c]" strokeWidth={1.5} />
+                                  <span className="font-sans text-[14px] text-[#555]">United States (USD $)</span>
                                 </div>
                               </div>
-                            );
-                          })}
-                        </div>
+                            </>
+                          )}
 
-                        {/* Extra bottom items (only on root level) */}
-                        {level === 0 && (
-                          <>
-                            {/* PERFECT MATCHES */}
-                            <div className="bg-[#fcf5f5] px-4 py-5 mt-2">
-                              <div className="flex items-center gap-4 mb-4">
-                                <img src="/assets/CT_FAIRY_frame_1_6.png" className="w-14 h-14 rounded-full object-cover shrink-0" alt="Fairy" />
-                                <p className="uppercase font-helveticaN font-bold text-[13px] text-[#340c0c] leading-tight">DARLING, UNLOCK YOUR PERFECT MAKEUP MATCHES WITH ME!</p>
-                              </div>
-                              <button className="w-full bg-[#2a0e12] text-white py-3 uppercase text-[12px] font-bold tracking-widest hover:bg-[#1a080a] transition-colors">
-                                FIND YOUR PERFECT MATCHES
-                              </button>
+                          {/* Special Shipping Menu Content */}
+                          {screen.isShipping && (
+                            <div className="px-6 py-5">
+                              <h4 className="font-bold text-[13px] mb-4 uppercase text-[#340c0c]">Select Region</h4>
+                              <ul className="flex flex-col gap-4">
+                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Australia (AUD $)</li>
+                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Austria (EUR €)</li>
+                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Canada - English (CAD $)</li>
+                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">France - English (EUR €)</li>
+                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Germany - English (EUR €)</li>
+                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">United Kingdom (GBP £)</li>
+                                <li className="text-[14px] font-sans text-[#340c0c] font-bold underline cursor-pointer">United States - English (USD $)</li>
+                              </ul>
                             </div>
+                          )}
 
-                            {/* SHIPPING */}
-                            <div className="px-4 py-6 border-t border-[#eae6e6] mt-4">
-                              <p className="uppercase font-helveticaN font-bold text-[13px] text-[#340c0c] mb-4">SHIPPING TO:</p>
-                              <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleItemClick({ title: 'REGION & CURRENCY', isShipping: true })}>
-                                <Globe size={22} className="text-[#340c0c]" strokeWidth={1.5} />
-                                <span className="font-sans text-[14px] text-[#555]">United States (USD $)</span>
-                              </div>
-                            </div>
-                          </>
-                        )}
-
-                        {/* Special Shipping Menu Content */}
-                        {screen.isShipping && (
-                          <div className="px-6 py-5">
-                            <h4 className="font-bold text-[13px] mb-4 uppercase text-[#340c0c]">Select Region</h4>
-                            <ul className="flex flex-col gap-4">
-                              <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Australia (AUD $)</li>
-                              <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Austria (EUR €)</li>
-                              <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Canada - English (CAD $)</li>
-                              <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">France - English (EUR €)</li>
-                              <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Germany - English (EUR €)</li>
-                              <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">United Kingdom (GBP £)</li>
-                              <li className="text-[14px] font-sans text-[#340c0c] font-bold underline cursor-pointer">United States - English (USD $)</li>
-                            </ul>
-                          </div>
-                        )}
-
+                        </div> {/* End of Scrollable Content Area */}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-              <Link to='/wishlist' className="relative">
-                <Heart size={24} strokeWidth={1.5} color='#340c0c' />
-              </Link>
+              <button onClick={handleSearchClick} aria-label="Open search" className="hover:opacity-70 transition-opacity cursor-pointer">
+                <PiMagnifyingGlass size={25} color="#340c0c" />
+              </button>
             </div>
 
             {/* Center: Logo */}
@@ -926,7 +940,7 @@ function HeaderInner() {
 
       </div>
       {/* STICKY SLIDE-DOWN HEADER */}
-      <div className={`fixed top-0 left-0 w-full bg-white z-[110] shadow-[0_2px_20px_rgba(52,12,12,0.08)] transition-transform duration-500 ease-in-out ${isScrolled && !isCartOpen && location.pathname !== '/search' ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`fixed top-0 left-0 w-full bg-white z-[110] shadow-[0_2px_20px_rgba(52,12,12,0.08)] ${isScrolled && !isCartOpen ? 'hidden md:block' : 'hidden'}`}>
         {/* Top Promotional Tier */}
         <div className="bg-[#340c0c] h-[1rem] flex items-center justify-center">
           <span className="text-white text-[10px] uppercase tracking-widest">{message[index]}</span>
@@ -971,8 +985,9 @@ function HeaderInner() {
                   ))}
                 </div>
 
-                {/* Utilities - ONLY Cart in sticky view */}
+                {/* Utilities - Search and Cart in sticky view */}
                 <div className="flex items-center ml-auto pl-4">
+              
                   <div
                     className="relative font-helveticaN flex items-center cursor-pointer"
                     onMouseEnter={handleCartEnter}
@@ -995,7 +1010,7 @@ function HeaderInner() {
 
       {/* Global Persistent Mega Menu Container */}
       <div
-        className={`fixed left-0 w-full bg-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] border-t border-[#eae6e6] transition-all duration-300 ease-in-out origin-top z-[105] ${isOpen ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible -translate-y-2 pointer-events-none'}`}
+        className={`fixed left-0 w-full bg-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] border-t border-[#eae6e6] transition-opacity duration-300 ease-in-out z-[105] before:absolute before:content-[''] before:-top-[30px] before:left-0 before:w-full before:h-[30px] before:bg-transparent ${isOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}
         style={{ top: menuTop + 'px' }}
         onMouseEnter={() => {
           if (activeCategory) handleMenuEnter(activeCategory);
