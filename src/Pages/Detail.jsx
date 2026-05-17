@@ -152,7 +152,7 @@ const CrossSellCard = ({ relatedItem, handleAddtoBasket, toggleWishlist, isInWis
 
             <div className="flex flex-col flex-grow text-center">
                 <Link to="/product" state={{ product: relatedItem }} className="group-hover:text-[#856d6d] transition-colors">
-                    <h3 className="font-optima uppercase text-[14px] font-bold text-[#340c0c] tracking-wide line-clamp-1 group-hover:underline">
+                    <h3 className="font-optima uppercase text-[14px] font-bold text-[#340c0c] tracking-wide line-clamp-1">
                         {relatedItem.title}
                     </h3>
                     <p className="text-[#856d6d] uppercase text-[11px] tracking-wider mb-3 mt-1 line-clamp-1 font-helveticaN">

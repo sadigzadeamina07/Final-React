@@ -92,7 +92,7 @@ const ProductCard = ({ item, isLiked, toggleWishlist, handleAddtoBasket }) => {
                             </div>
                         ) : (
                             <Link to='/product' state={{ product: item }}>
-                                <h3 className='font-bold uppercase line-clamp-1 text-[#333333] group-hover:underline'>{item.title}</h3>
+                                <h3 className='font-bold uppercase line-clamp-1 text-[#333333]'>{item.title}</h3>
                                 <p className='line-clamp-2 text-[#555]'>{item.subtitle || item.subTitle}</p>
                             </Link>
                         )}
