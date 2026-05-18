@@ -886,9 +886,9 @@ function HeaderInner() {
                   </div>
                 </div>
               </div>
-              <button onClick={handleSearchClick} aria-label="Open search" className="hover:opacity-70 transition-opacity cursor-pointer">
-                <PiMagnifyingGlass size={25} color="#340c0c" />
-              </button>
+              <Link to="/wishlist" aria-label="Wishlist" className="hover:opacity-70 transition-opacity cursor-pointer flex items-center">
+                <Heart size={25} strokeWidth={1.5} color="#340c0c" />
+              </Link>
             </div>
 
             {/* Center: Logo */}
