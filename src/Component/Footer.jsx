@@ -297,7 +297,7 @@ function Footer() {
                                   >
                                     <option value="">Please Select</option>
                                     {Object.entries(countries).flatMap(([_, list]) => list).map(c => (
-                                      <option key={c.name} value={c.name}>{c.name}</option>
+                                      <option key={c.name} value={c.name}>{c.name} ({c.currency})</option>
                                     ))}
                                   </select>
                                   <ChevronDown size={16} strokeWidth={1.5} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#333333] pointer-events-none" />
