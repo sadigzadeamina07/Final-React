@@ -435,7 +435,7 @@ const renderMegaMenuContent = (title) => {
 
 function HeaderInner() {
   const { basket, handleAddtoBasket, CloseBasket, Basketopen } = useBasket();
-  const { trending } = useProduct();
+  const { trending, selectedCountry, setSelectedCountry, countries } = useProduct();
   const { wishlist, toggleWishlist, isInWishlist, moveToWishlist } = useWishlist();
   const { openCart, isCartOpen } = useUI();
   const { handleMenuState } = useNav();
@@ -455,8 +455,7 @@ function HeaderInner() {
   const [fade, setFade] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCurrencyOpen, setIsCurrencyOpen] = useState(false);
-  const [activeRegion, setActiveRegion] = useState("United States | EN | USD $");
-  const [tempRegion, setTempRegion] = useState("United States - English (USD $)");
+  const [tempRegionName, setTempRegionName] = useState(selectedCountry.name);
 
   const [activeCategory, setActiveCategory] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -647,59 +646,59 @@ function HeaderInner() {
 
 
       </div>
-      <div ref={normalHeaderRef} className={`relative bg-white/90 backdrop-blur-xl px-4 z-[110] transition-all duration-500 ${isScrolled ? 'shadow-[0_2px_20px_rgba(52,12,12,0.06)]' : ''}`}>
-        <div className="container max-w-[1470px]  py-1 min-[1029px]:pt-4 min-[1029px]:pb-2 mx-auto">
-          <div className="hidden min-[1029px]:flex h-[10vh] justify-between items-center ">
-            <div className="text-[12px] gap-4 z-[160]">
-              <div className="relative group">
-                <p
-                  className="cursor-pointer hover:text-[#a06464] transition-colors flex items-center gap-1"
-                  onClick={() => {
-                    setTempRegion(activeRegion); // reset tempRegion to current when opening
-                    setIsCurrencyOpen(!isCurrencyOpen);
-                  }}
-                >
-                  {activeRegion}
-                </p>
+       <div ref={normalHeaderRef} className={`relative bg-white/90 backdrop-blur-xl px-4 z-[110] transition-all duration-500 ${isScrolled ? 'shadow-[0_2px_20px_rgba(52,12,12,0.06)]' : ''}`}>
+         <div className="container max-w-[1470px]  py-1 min-[1029px]:pt-4 min-[1029px]:pb-2 mx-auto">
+           <div className="hidden min-[1029px]:flex h-[10vh] justify-between items-center ">
+             <div className="text-[12px] gap-4 z-[160]">
+               <div className="relative group">
+                 <p
+                   className="cursor-pointer hover:text-[#a06464] transition-colors flex items-center gap-1"
+                   onClick={() => {
+                     setTempRegionName(selectedCountry.name); // reset tempRegionName to current when opening
+                     setIsCurrencyOpen(!isCurrencyOpen);
+                   }}
+                 >
+                   {selectedCountry.name} | EN | {selectedCountry.currency}
+                 </p>
 
-                {isCurrencyOpen && (
-                  <div className="absolute top-[100%] left-0 mt-4 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-[#eae6e6] w-[260px] p-5 text-left before:content-[''] before:absolute before:-top-2 before:left-8 before:w-4 before:h-4 before:bg-white before:border-t before:border-l before:border-[#eae6e6] before:transform before:rotate-45">
-                    <label className="block text-[11px] font-sans font-bold text-[#340c0c] mb-2 tracking-wide">Shipping to*</label>
-                    <div className="relative">
-                      <select
-                        value={tempRegion}
-                        onChange={(e) => setTempRegion(e.target.value)}
-                        className="w-full border border-[#d6cece] p-2.5 text-[13px] font-sans text-[#340c0c] bg-white appearance-none outline-none cursor-pointer focus:border-[#340c0c] transition-colors rounded-none"
-                      >
-                        <option value="Please Select">Please Select</option>
-                        <option value="Australia | EN | AUD $">Australia (AUD $)</option>
-                        <option value="Austria | EN | EUR €">Austria (EUR €)</option>
-                        <option value="Canada | EN | CAD $">Canada - English (CAD $)</option>
-                        <option value="France | EN | EUR €">France - English (EUR €)</option>
-                        <option value="Germany | EN | EUR €">Germany - English (EUR €)</option>
-                        <option value="United Kingdom | EN | GBP £">United Kingdom (GBP £)</option>
-                        <option value="United States | EN | USD $">United States - English (USD $)</option>
-                      </select>
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                        <ChevronDown size={16} color="#340c0c" />
-                      </div>
-                    </div>
+                 {isCurrencyOpen && (
+                   <div className="absolute top-[100%] left-0 mt-4 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-[#eae6e6] w-[260px] p-5 text-left before:content-[''] before:absolute before:-top-2 before:left-8 before:w-4 before:h-4 before:bg-white before:border-t before:border-l before:border-[#eae6e6] before:transform before:rotate-45">
+                     <label className="block text-[11px] font-sans font-bold text-[#340c0c] mb-2 tracking-wide">Shipping to*</label>
+                     <div className="relative">
+                       <select
+                         value={tempRegionName}
+                         onChange={(e) => setTempRegionName(e.target.value)}
+                         className="w-full border border-[#d6cece] p-2.5 text-[13px] font-sans text-[#340c0c] bg-white appearance-none outline-none cursor-pointer focus:border-[#340c0c] transition-colors rounded-none"
+                       >
+                         <option value="">Please Select</option>
+                         {Object.entries(countries).flatMap(([_, list]) => list).map(c => (
+                           <option key={c.name} value={c.name}>{c.name} ({c.currency})</option>
+                         ))}
+                       </select>
+                       <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                         <ChevronDown size={16} color="#340c0c" />
+                       </div>
+                     </div>
 
-                    <button
-                      onClick={() => {
-                        if (tempRegion !== "Please Select") {
-                          setActiveRegion(tempRegion);
-                          setIsCurrencyOpen(false);
-                        }
-                      }}
-                      className="w-full mt-5 bg-[#340c0c] text-white hover:bg-[#1e0505] transition-colors font-bold py-3 text-[12px] tracking-[0.15em] uppercase"
-                    >
-                      CONTINUE
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
+                     <button
+                       onClick={() => {
+                         if (tempRegionName) {
+                           const allCountries = Object.entries(countries).flatMap(([_, list]) => list);
+                           const found = allCountries.find(c => c.name === tempRegionName);
+                           if (found) {
+                             setSelectedCountry(found);
+                             setIsCurrencyOpen(false);
+                           }
+                         }
+                       }}
+                       className="w-full mt-5 bg-[#340c0c] text-white hover:bg-[#1e0505] transition-colors font-bold py-3 text-[12px] tracking-[0.15em] uppercase"
+                     >
+                       CONTINUE
+                     </button>
+                   </div>
+                 )}
+               </div>
+             </div>
             <Link to='/home'>
               <img src="/assets/img/logo.svg" className='w-[230px] m-auto' alt="" />
             </Link>
@@ -851,7 +850,7 @@ function HeaderInner() {
                                 <p className="uppercase font-helveticaN font-bold text-[13px] text-[#340c0c] mb-4">SHIPPING TO:</p>
                                 <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleItemClick({ title: 'REGION & CURRENCY', isShipping: true })}>
                                   <Globe size={22} className="text-[#340c0c]" strokeWidth={1.5} />
-                                  <span className="font-sans text-[14px] text-[#555]">United States (USD $)</span>
+                                  <span className="font-sans text-[14px] text-[#555]">{selectedCountry.name} ({selectedCountry.currency})</span>
                                 </div>
                               </div>
                             </>
@@ -862,13 +861,21 @@ function HeaderInner() {
                             <div className="px-6 py-5">
                               <h4 className="font-bold text-[13px] mb-4 uppercase text-[#340c0c]">Select Region</h4>
                               <ul className="flex flex-col gap-4">
-                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Australia (AUD $)</li>
-                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Austria (EUR €)</li>
-                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Canada - English (CAD $)</li>
-                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">France - English (EUR €)</li>
-                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">Germany - English (EUR €)</li>
-                                <li className="text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline">United Kingdom (GBP £)</li>
-                                <li className="text-[14px] font-sans text-[#340c0c] font-bold underline cursor-pointer">United States - English (USD $)</li>
+                                {Object.entries(countries).flatMap(([_, list]) => list).map(c => {
+                                  const isSelected = selectedCountry.name === c.name;
+                                  return (
+                                    <li 
+                                      key={c.name}
+                                      onClick={() => {
+                                        setSelectedCountry(c);
+                                        ToggleMenu();
+                                      }}
+                                      className={`text-[14px] font-sans text-[#340c0c] cursor-pointer hover:underline ${isSelected ? 'font-bold underline' : ''}`}
+                                    >
+                                      {c.name} ({c.currency})
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             </div>
                           )}
