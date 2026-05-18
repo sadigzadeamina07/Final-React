@@ -36,7 +36,7 @@ function Fave() {
                         <p className="text-[#340c0c] font-helveticaN max-w-[500px] mb-[16px]">
                             Keep a list of all the gorgeous Charlotte Tilbury beauty products you love, or are dying to try next! You can log in on any device to see your saved wishlist.
                         </p>
-                        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
+                        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10">
                             {wishlist.map((item, idx) => {
                                 const isImage = (url) => typeof url === 'string' && !url.match(/\.(mp4|webm|ogg|mov|avi)(\?|$)/i) && !url.startsWith('data:image/');
                                 
